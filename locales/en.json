@@ -1,0 +1,53 @@
+{
+  "common": {
+    "appName": "Kadosh RentCar",
+    "loading": "Loading...",
+    "reserve": "Reserve",
+    "allCategories": "All Categories",
+    "searchByName": "Search by name...",
+    "seats": "Seats",
+    "engine": "Engine",
+    "comments": "Comments",
+    "close": "Close",
+    "bookNow": "Book Now",
+    "selectDate": "Select Date",
+    "selectTime": "Select Time"
+  },
+  "categories": {
+    "sedan": "Sedan",
+    "suv": "SUV",
+    "minivan": "Minivan",
+    "compact": "Compact"
+  },
+  "reservationForm": {
+    "title": "Make a Reservation",
+    "firstName": "First Name",
+    "lastName": "Last Name",
+    "idOrPassport": "ID/Passport",
+    "phone": "Phone",
+    "email": "Email",
+    "pickupDate": "Pickup Date",
+    "pickupTime": "Pickup Time",
+    "returnDate": "Return Date",
+    "returnTime": "Return Time",
+    "additionalComments": "Additional Comments",
+    "submit": "Send Reservation Request",
+    "successMessage": "Reservation request sent successfully! We will contact you shortly.",
+    "errorMessage": "Failed to send reservation request. Please try again.",
+    "downloadICS": "Add to Calendar (.ics)"
+  },
+  "footer": {
+    "contactUs": "Contact Us",
+    "phone": "Phone:",
+    "email": "Email:",
+    "address": "Address:",
+    "availability": "We work 24 hours at your disposal.",
+    "delivery": "We deliver anywhere.",
+    "payments": "We accept"
+  },
+  "vehicleDetails": {
+    "title": "Vehicle Details",
+    "gallery": "Gallery",
+    "specifications": "Specifications"
+  }
+}

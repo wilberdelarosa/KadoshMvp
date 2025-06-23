@@ -1,0 +1,53 @@
+{
+  "common": {
+    "appName": "Kadosh RentCar",
+    "loading": "Cargando...",
+    "reserve": "Reservar",
+    "allCategories": "Todas las Categorías",
+    "searchByName": "Buscar por nombre...",
+    "seats": "Asientos",
+    "engine": "Motor",
+    "comments": "Comentarios",
+    "close": "Cerrar",
+    "bookNow": "Reservar Ahora",
+    "selectDate": "Seleccionar Fecha",
+    "selectTime": "Seleccionar Hora"
+  },
+  "categories": {
+    "sedan": "Sedán",
+    "suv": "SUV",
+    "minivan": "Minivan",
+    "compact": "Compacto"
+  },
+  "reservationForm": {
+    "title": "Hacer una Reserva",
+    "firstName": "Nombre",
+    "lastName": "Apellido",
+    "idOrPassport": "Cédula/Pasaporte",
+    "phone": "Teléfono",
+    "email": "Correo Electrónico",
+    "pickupDate": "Fecha de Recogida",
+    "pickupTime": "Hora de Recogida",
+    "returnDate": "Fecha de Devolución",
+    "returnTime": "Hora de Devolución",
+    "additionalComments": "Comentarios Adicionales",
+    "submit": "Enviar Solicitud de Reserva",
+    "successMessage": "¡Solicitud de reserva enviada con éxito! Nos pondremos en contacto contigo en breve.",
+    "errorMessage": "Error al enviar la solicitud de reserva. Por favor, inténtalo de nuevo.",
+    "downloadICS": "Añadir al Calendario (.ics)"
+  },
+  "footer": {
+    "contactUs": "Contáctanos",
+    "phone": "Teléfono:",
+    "email": "Correo:",
+    "address": "Dirección:",
+    "availability": "Laboramos 24 horas a tu disposición.",
+    "delivery": "Hacemos entrega en todos los lugares.",
+    "payments": "Aceptamos"
+  },
+  "vehicleDetails": {
+    "title": "Detalles del Vehículo",
+    "gallery": "Galería",
+    "specifications": "Especificaciones"
+  }
+}

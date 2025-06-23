@@ -1,0 +1,77 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 7%; /* kadoshBlack.DEFAULT #0D0D0D */
+    --foreground: 0 0% 98%; /* Almost white */
+
+    --card: 0 0% 10%; /* kadoshBlack.light #1A1A1A */
+    --card-foreground: 0 0% 90%;
+
+    --popover: 0 0% 10%;
+    --popover-foreground: 0 0% 90%;
+
+    --primary: 80 100% 62%; /* kadoshGreen.DEFAULT #A5FF3F */
+    --primary-foreground: 0 0% 5%; /* Black for text on green */
+
+    --secondary: 0 0% 15%; /* Darker Gray */
+    --secondary-foreground: 0 0% 90%;
+
+    --muted: 0 0% 20%;
+    --muted-foreground: 0 0% 60%;
+
+    --accent: 80 90% 55%; /* Slightly darker green for hover */
+    --accent-foreground: 0 0% 5%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 0 0% 20%;
+    --input: 0 0% 20%;
+    --ring: 80 100% 62%; /* Kadosh Green for focus rings */
+
+    --radius: 0.5rem;
+  }
+
+  .dark {
+    /* Keeping dark theme consistent with base for now, as Kadosh is dark by default */
+    --background: 0 0% 7%;
+    --foreground: 0 0% 98%;
+
+    --card: 0 0% 10%;
+    --card-foreground: 0 0% 90%;
+
+    --popover: 0 0% 10%;
+    --popover-foreground: 0 0% 90%;
+
+    --primary: 80 100% 62%;
+    --primary-foreground: 0 0% 5%;
+
+    --secondary: 0 0% 15%;
+    --secondary-foreground: 0 0% 90%;
+
+    --muted: 0 0% 20%;
+    --muted-foreground: 0 0% 60%;
+
+    --accent: 80 90% 55%;
+    --accent-foreground: 0 0% 5%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+
+    --border: 0 0% 20%;
+    --input: 0 0% 20%;
+    --ring: 80 100% 62%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
