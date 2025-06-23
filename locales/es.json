@@ -43,7 +43,8 @@
     "address": "Dirección:",
     "availability": "Laboramos 24 horas a tu disposición.",
     "delivery": "Hacemos entrega en todos los lugares.",
-    "payments": "Aceptamos"
+    "payments": "Aceptamos",
+    "rightsReserved": "WebNovaLab. Todos los derechos reservados."
   },
   "vehicleDetails": {
     "title": "Detalles del Vehículo",
