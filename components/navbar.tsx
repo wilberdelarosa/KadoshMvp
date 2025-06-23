@@ -89,7 +89,7 @@ export default function Navbar() {
         <div className="flex items-center gap-4">
           <Select value={locale} onValueChange={handleLanguageChange}>
             <SelectTrigger className="w-[100px] bg-kadoshBlack-DEFAULT border-kadoshGreen-DEFAULT/30 text-white hover:border-kadoshGreen-DEFAULT">
-              <SelectValue placeholder="Language" />
+              <SelectValue placeholder={t("language", "common")} />
             </SelectTrigger>
             <SelectContent className="bg-kadoshBlack-DEFAULT text-white border-kadoshGreen-DEFAULT/30">
               <SelectItem value="en" className="hover:bg-kadoshGreen-DEFAULT hover:text-kadoshBlack-DEFAULT">
