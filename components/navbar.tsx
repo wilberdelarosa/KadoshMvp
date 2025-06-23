@@ -38,8 +38,17 @@ export default function Navbar() {
   return (
     <nav className="bg-kadoshBlack-light/95 backdrop-blur-md text-white py-4 px-4 sm:px-6 sticky top-0 z-50 shadow-lg border-b border-kadoshGreen-DEFAULT/20">
       <div className="container mx-auto flex justify-between items-center">
-        <Link href={`/${locale}`} className="flex items-center gap-3 hover:opacity-80 transition-opacity">
-          <Image src="/kadosh-logo.jpg" alt="Kadosh RentCar Logo" width={60} height={60} className="rounded-lg" />
+        <Link
+          href={`/${locale}`}
+          className="flex items-center gap-3 hover:opacity-80 transition-opacity"
+        >
+          <Image
+            src="/kadosh-logo.jpg"
+            alt="Kadosh RentCar Logo"
+            width={80}
+            height={80}
+            className="rounded-lg transition-transform duration-300 hover:scale-105"
+          />
           <div className="hidden sm:block">
             <span className="text-2xl font-bold text-kadoshGreen-DEFAULT">{t("appName", "common")}</span>
             <p className="text-sm text-gray-400">Punta Cana</p>
@@ -89,7 +98,7 @@ export default function Navbar() {
         <div className="flex items-center gap-4">
           <Select value={locale} onValueChange={handleLanguageChange}>
             <SelectTrigger className="w-[100px] bg-kadoshBlack-DEFAULT border-kadoshGreen-DEFAULT/30 text-white hover:border-kadoshGreen-DEFAULT">
-              <SelectValue placeholder="Language" />
+              <SelectValue placeholder={t("language", "common")} />
             </SelectTrigger>
             <SelectContent className="bg-kadoshBlack-DEFAULT text-white border-kadoshGreen-DEFAULT/30">
               <SelectItem value="en" className="hover:bg-kadoshGreen-DEFAULT hover:text-kadoshBlack-DEFAULT">

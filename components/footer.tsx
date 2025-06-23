@@ -39,7 +39,13 @@ export default function Footer() {
           {/* Company Info */}
           <div className="space-y-4">
             <div className="flex items-center gap-3">
-              <Image src="/kadosh-logo.jpg" alt="Kadosh RentCar Logo" width={60} height={60} className="rounded-lg" />
+              <Image
+                src="/kadosh-logo.jpg"
+                alt="Kadosh RentCar Logo"
+                width={80}
+                height={80}
+                className="rounded-lg transition-transform duration-300 hover:scale-105"
+              />
               <div>
                 <p className="text-kadoshGreen-DEFAULT text-xl font-bold">{t("appName", "common")}</p>
                 <p className="text-sm text-gray-400">RentCar Punta Cana</p>
@@ -143,7 +149,7 @@ export default function Footer() {
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <div className="text-center md:text-left">
               <p className="text-gray-500 text-sm">
-                &copy; {new Date().getFullYear()} {t("appName", "common")}. All rights reserved.
+                &copy; {new Date().getFullYear()} {t("rightsReserved", "footer")}
               </p>
               <p className="text-xs text-gray-600">Punta Cana, Dominican Republic</p>
             </div>
@@ -151,13 +157,22 @@ export default function Footer() {
             <div className="flex items-center gap-4">
               <span className="text-sm text-kadoshGreen-DEFAULT font-medium">{t("followUs", "footer")}:</span>
               <div className="flex gap-3">
-                <a href="#" className="text-gray-400 hover:text-kadoshGreen-DEFAULT transition-colors">
+                <a
+                  href="#"
+                  className="text-gray-400 hover:text-kadoshGreen-DEFAULT transition-colors transform hover:-translate-y-1 hover:scale-110"
+                >
                   <Facebook size={20} />
                 </a>
-                <a href="#" className="text-gray-400 hover:text-kadoshGreen-DEFAULT transition-colors">
+                <a
+                  href="#"
+                  className="text-gray-400 hover:text-kadoshGreen-DEFAULT transition-colors transform hover:-translate-y-1 hover:scale-110"
+                >
                   <Instagram size={20} />
                 </a>
-                <a href="#" className="text-gray-400 hover:text-kadoshGreen-DEFAULT transition-colors">
+                <a
+                  href="#"
+                  className="text-gray-400 hover:text-kadoshGreen-DEFAULT transition-colors transform hover:-translate-y-1 hover:scale-110"
+                >
                   <Twitter size={20} />
                 </a>
               </div>
