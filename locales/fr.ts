@@ -93,6 +93,7 @@ const fr: Translations = {
     ourFleet: "Notre Flotte",
     reservations: "Réservations",
     support: "Support",
+    rightsReserved: "WebNovaLab. Tous droits réservés.",
   },
   vehicleDetails: {
     title: "Détails du Véhicule",

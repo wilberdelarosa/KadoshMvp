@@ -93,6 +93,7 @@ const en: Translations = {
     ourFleet: "Our Fleet",
     reservations: "Reservations",
     support: "Support",
+    rightsReserved: "WebNovaLab. All rights reserved.",
   },
   vehicleDetails: {
     title: "Vehicle Details",
