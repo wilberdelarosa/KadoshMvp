@@ -29,9 +29,6 @@ export type Translations = {
     call: string
     clearFilters: string
     category: string
-    success: string
-    error: string
-    language: string
   }
   categories: {
     sedan: string
@@ -81,7 +78,6 @@ export type Translations = {
     returnDate: string
     returnTime: string
     additionalComments: string
-    additionalCommentsPlaceholder: string
     submit: string
     successMessage: string
     errorMessage: string
@@ -115,7 +111,6 @@ export type Translations = {
     pricePerDay: string
     vehicleSpecs: string
     included: string
-    noImages: string
   }
 }
 

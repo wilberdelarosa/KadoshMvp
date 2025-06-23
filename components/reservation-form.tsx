@@ -80,7 +80,7 @@ export default function ReservationForm({ vehicle, onFormSubmitSuccess }: Reserv
         const result = await submitReservation(data)
         if (result.success) {
           toast({
-            title: t("success", "common"),
+            title: "¡Éxito!",
             description: t("successMessage", "reservationForm"),
             variant: "default",
             className: "bg-kadoshGreen-DEFAULT text-kadoshBlack-DEFAULT",
@@ -93,7 +93,7 @@ export default function ReservationForm({ vehicle, onFormSubmitSuccess }: Reserv
           if (onFormSubmitSuccess) onFormSubmitSuccess()
         } else {
           toast({
-            title: t("error", "common"),
+            title: "Error",
             description: result.message || t("errorMessage", "reservationForm"),
             variant: "destructive",
           })
@@ -101,7 +101,7 @@ export default function ReservationForm({ vehicle, onFormSubmitSuccess }: Reserv
         }
       } catch (error) {
         toast({
-          title: t("error", "common"),
+          title: "Error",
           description: t("errorMessage", "reservationForm"),
           variant: "destructive",
         })
@@ -298,7 +298,7 @@ export default function ReservationForm({ vehicle, onFormSubmitSuccess }: Reserv
             id="additionalComments"
             {...register("additionalComments")}
             className="bg-input border-gray-700 focus:border-kadoshGreen-DEFAULT min-h-[100px]"
-            placeholder={t("additionalCommentsPlaceholder", "reservationForm")}
+            placeholder="Any special requests or comments..."
           />
         </div>
 

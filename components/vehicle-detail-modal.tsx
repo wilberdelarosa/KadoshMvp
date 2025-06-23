@@ -62,7 +62,7 @@ export default function VehicleDetailModal({ vehicle, isOpen, onClose, onReserve
                 )}
               </Carousel>
             ) : (
-              <p className="text-muted-foreground">{t("noImages", "vehicleDetails")}</p>
+              <p className="text-muted-foreground">No images available.</p>
             )}
           </div>
 
