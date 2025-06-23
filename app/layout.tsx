@@ -1,17 +1,19 @@
 import type React from "react"
 import type { Metadata } from "next"
+import { Inter } from "next/font/google"
 import "./globals.css"
 import Navbar from "@/components/navbar"
 import Footer from "@/components/footer"
 import { ThemeProvider } from "@/components/theme-provider"
 import { I18nProvider } from "@/context/i18n-context" // Import I18nProvider
 
+const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
   title: "Kadosh RentCar Punta Cana",
-  description: "Vehicle rental services in Punta Cana. Reserve your car today!",
+  description: "Vehicle rental services in Punta Cana. Reserve your car today!",,
   // TODO: Add more metadata like open graph tags, icons etc.
-  generator: "v0.dev",
+    generator: 'v0.dev'
 }
 
 export default function RootLayout({
@@ -25,7 +27,7 @@ export default function RootLayout({
 
   return (
     <html lang={lang} suppressHydrationWarning>
-      <body>
+      <body className={inter.className}>
         <ThemeProvider
           attribute="class"
           defaultTheme="dark" // Kadosh is dark by default
