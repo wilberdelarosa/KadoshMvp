@@ -97,7 +97,7 @@ const PageContent = ({ lang }: { lang: Locale }) => {
                 ].map(({ icon: Icon, key }) => (
                   <div key={key} className="flex items-center gap-2 text-gray-300">
                     <Icon size={20} className="text-kadoshGreen-DEFAULT" />
-                    <span className="text-sm font-medium">{t(`features.${key}`, "hero")}</span>
+                    <span className="text-sm font-medium">{t(key, "hero.features")}</span>
                   </div>
                 ))}
               </div>
