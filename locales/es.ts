@@ -19,6 +19,9 @@ const es: Translations = {
     call: "Llamar",
     clearFilters: "Limpiar Filtros",
     category: "Categoría",
+    success: "Éxito",
+    error: "Error",
+    language: "Idioma",
   },
   categories: {
     sedan: "Sedán",
@@ -68,6 +71,7 @@ const es: Translations = {
     returnDate: "Fecha de Devolución",
     returnTime: "Hora de Devolución",
     additionalComments: "Comentarios Adicionales",
+    additionalCommentsPlaceholder: "Cualquier solicitud especial o comentario...",
     submit: "Enviar Solicitud de Reserva",
     successMessage: "¡Solicitud de reserva enviada con éxito! Nos pondremos en contacto contigo en breve.",
     errorMessage: "Error al enviar la solicitud de reserva. Por favor, inténtalo de nuevo.",
@@ -101,6 +105,7 @@ const es: Translations = {
     pricePerDay: "Precio por día",
     vehicleSpecs: "Especificaciones del Vehículo",
     included: "Características Incluidas",
+    noImages: "No hay imágenes disponibles.",
   },
 }
 
