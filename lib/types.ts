@@ -103,6 +103,7 @@ export type Translations = {
     ourFleet: string
     reservations: string
     support: string
+    rightsReserved: string
   }
   vehicleDetails: {
     title: string
