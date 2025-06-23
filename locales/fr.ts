@@ -19,6 +19,9 @@ const fr: Translations = {
     call: "Appeler",
     clearFilters: "Effacer Filtres",
     category: "Catégorie",
+    success: "Succès",
+    error: "Erreur",
+    language: "Langue",
   },
   categories: {
     sedan: "Berline",
@@ -68,6 +71,7 @@ const fr: Translations = {
     returnDate: "Date de Retour",
     returnTime: "Heure de Retour",
     additionalComments: "Commentaires Additionnels",
+    additionalCommentsPlaceholder: "Toute demande spéciale ou commentaire...",
     submit: "Envoyer la Demande de Réservation",
     successMessage: "Demande de réservation envoyée avec succès ! Nous vous contacterons sous peu.",
     errorMessage: "Échec de l'envoi de la demande de réservation. Veuillez réessayer.",
@@ -101,6 +105,7 @@ const fr: Translations = {
     pricePerDay: "Prix par jour",
     vehicleSpecs: "Spécifications du Véhicule",
     included: "Caractéristiques Incluses",
+    noImages: "Aucune image disponible.",
   },
 }
 
