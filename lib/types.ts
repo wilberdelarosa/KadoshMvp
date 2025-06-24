@@ -67,6 +67,8 @@ export type Translations = {
     tryDifferentFilters: string
     searchPlaceholder: string
     filters: string
+    priceRange: string
+    minSeats: string
   }
   reservationForm: {
     title: string
