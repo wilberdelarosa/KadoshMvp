@@ -11,7 +11,15 @@
     "close": "Cerrar",
     "bookNow": "Reservar Ahora",
     "selectDate": "Seleccionar Fecha",
-    "selectTime": "Seleccionar Hora"
+    "selectTime": "Seleccionar Hora",
+    "whatsapp": "WhatsApp",
+    "email": "Correo",
+    "call": "Llamar",
+    "clearFilters": "Limpiar Filtros",
+    "category": "Categoría",
+    "success": "Éxito",
+    "error": "Error",
+    "language": "Idioma"
   },
   "categories": {
     "sedan": "Sedán",
@@ -34,7 +42,8 @@
     "submit": "Enviar Solicitud de Reserva",
     "successMessage": "¡Solicitud de reserva enviada con éxito! Nos pondremos en contacto contigo en breve.",
     "errorMessage": "Error al enviar la solicitud de reserva. Por favor, inténtalo de nuevo.",
-    "downloadICS": "Añadir al Calendario (.ics)"
+    "downloadICS": "Añadir al Calendario (.ics)",
+    "additionalCommentsPlaceholder": "Cualquier solicitud especial o comentario..."
   },
   "footer": {
     "contactUs": "Contáctanos",
@@ -43,7 +52,8 @@
     "address": "Dirección:",
     "availability": "Laboramos 24 horas a tu disposición.",
     "delivery": "Hacemos entrega en todos los lugares.",
-    "payments": "Aceptamos"
+    "payments": "Aceptamos",
+    "rightsReserved": "WebNovaLab. Todos los derechos reservados."
   },
   "vehicleDetails": {
     "title": "Detalles del Vehículo",

@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, use } from "react"
 import { useParams, useRouter } from "next/navigation"
 import Image from "next/image"
 import Link from "next/link"
@@ -175,8 +175,9 @@ const VehicleDetailContent = ({ lang }: { lang: Locale }) => {
   )
 }
 
-export default function VehicleDetailPage({ params }: { params: { lang: Locale; vehicleId: string } }) {
-  const currentLang = ["en", "es", "fr"].includes(params.lang) ? params.lang : "en"
+export default function VehicleDetailPage({ params }: { params: any }) {
+  const { lang } = use(params) as { lang: Locale }
+  const currentLang = ["en", "es", "fr"].includes(lang) ? lang : "en"
 
   return (
     <I18nProvider initialLocale={currentLang}>
