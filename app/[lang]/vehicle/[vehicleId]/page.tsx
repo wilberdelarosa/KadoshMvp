@@ -1,6 +1,9 @@
 "use client"
 
+
 import { useState, useEffect, use } from "react"
+
+import React, {
 import { useParams, useRouter } from "next/navigation"
 import Image from "next/image"
 import Link from "next/link"
@@ -8,7 +11,8 @@ import { vehiclesData } from "@/lib/vehicles"
 import type { Vehicle, Locale } from "@/lib/types"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from "@/components/ui/carousel"
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious, type CarouselApi } from "@/components/ui/carousel"
+import { cn } from "@/lib/utils"
 import { ArrowLeft, Users, Zap, Tag, CheckCircle } from "lucide-react"
 import { useI18n, I18nProvider } from "@/context/i18n-context"
 import ReservationForm from "@/components/reservation-form"
@@ -20,6 +24,18 @@ const VehicleDetailContent = ({ lang }: { lang: Locale }) => {
   const router = useRouter()
   const [vehicle, setVehicle] = useState<Vehicle | null>(null)
   const [showReservationForm, setShowReservationForm] = useState(false)
+  const [carouselApi, setCarouselApi] = useState<CarouselApi | null>(null)
+  const [selectedIndex, setSelectedIndex] = useState(0)
+
+  useEffect(() => {
+    if (!carouselApi) return
+    const handler = () => setSelectedIndex(carouselApi.selectedScrollSnap())
+    carouselApi.on("select", handler)
+    handler()
+    return () => {
+      carouselApi.off("select", handler)
+    }
+  }, [carouselApi])
 
   useEffect(() => {
     const vehicleId = params.vehicleId as string
@@ -73,7 +89,8 @@ const VehicleDetailContent = ({ lang }: { lang: Locale }) => {
             <div className="bg-card rounded-2xl p-6 border border-gray-800">
               <h3 className="text-xl font-semibold mb-4 text-kadoshGreen-DEFAULT">{t("gallery", "vehicleDetails")}</h3>
               {vehicle.images.length > 0 ? (
-                <Carousel className="w-full">
+                <>
+                <Carousel className="w-full" setApi={setCarouselApi}>
                   <CarouselContent>
                     {vehicle.images.map((src, index) => (
                       <CarouselItem key={index}>
@@ -95,6 +112,23 @@ const VehicleDetailContent = ({ lang }: { lang: Locale }) => {
                     </>
                   )}
                 </Carousel>
+                {vehicle.images.length > 1 && (
+                  <div className="mt-4 flex justify-center gap-3 overflow-x-auto">
+                    {vehicle.images.map((src, idx) => (
+                      <button
+                        key={idx}
+                        onClick={() => carouselApi?.scrollTo(idx)}
+                        className={cn(
+                          "relative h-16 w-24 rounded overflow-hidden border-2",
+                          idx === selectedIndex ? "border-kadoshGreen-DEFAULT" : "border-transparent"
+                        )}
+                      >
+                        <Image src={src} alt={`thumb ${idx + 1}`} fill className="object-cover" />
+                      </button>
+                    ))}
+                  </div>
+                )}
+                </>
               ) : (
                 <div className="w-full h-80 bg-gray-800 rounded-xl flex items-center justify-center">
                   <p className="text-gray-500">{t("noVehicles", "vehicleCatalog")}</p>
