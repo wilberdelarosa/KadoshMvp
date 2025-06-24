@@ -26,8 +26,10 @@ export default function RootLayout({
   const currentLang = ["en", "es", "fr"].includes(lang) ? lang : "en"
 
   return (
+
         
     <html lang={lang} suppressHydrationWarning>
+
       <body>
         <ThemeProvider
           attribute="class"
