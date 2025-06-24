@@ -11,7 +11,15 @@
     "close": "Close",
     "bookNow": "Book Now",
     "selectDate": "Select Date",
-    "selectTime": "Select Time"
+    "selectTime": "Select Time",
+    "whatsapp": "WhatsApp",
+    "email": "Email",
+    "call": "Call",
+    "clearFilters": "Clear Filters",
+    "category": "Category",
+    "success": "Success",
+    "error": "Error",
+    "language": "Language"
   },
   "categories": {
     "sedan": "Sedan",
@@ -34,7 +42,8 @@
     "submit": "Send Reservation Request",
     "successMessage": "Reservation request sent successfully! We will contact you shortly.",
     "errorMessage": "Failed to send reservation request. Please try again.",
-    "downloadICS": "Add to Calendar (.ics)"
+    "downloadICS": "Add to Calendar (.ics)",
+    "additionalCommentsPlaceholder": "Any special requests or comments..."
   },
   "footer": {
     "contactUs": "Contact Us",
