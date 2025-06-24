@@ -18,7 +18,9 @@ export default function VehicleCard({ vehicle, onReserveClick }: VehicleCardProp
   const { t, locale } = useI18n()
 
   return (
-    <Card className="bg-card overflow-hidden shadow-xl hover:shadow-2xl hover:shadow-kadoshGreen-DEFAULT/20 transition-all duration-300 flex flex-col h-full group border border-gray-800 hover:border-kadoshGreen-DEFAULT/50">
+    <Card
+      className="bg-card overflow-hidden shadow-xl hover:shadow-2xl hover:shadow-kadoshGreen-DEFAULT/20 transition-all duration-300 flex flex-col h-full group border border-gray-800 hover:border-kadoshGreen-DEFAULT/50 transform hover:-translate-y-1"
+    >
       <CardHeader className="p-0 relative">
         <div className="relative w-full h-56 overflow-hidden">
           <Image
