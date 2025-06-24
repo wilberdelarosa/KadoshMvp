@@ -34,7 +34,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <I18nProvider initialLocale={lang as "en" | "es" | "fr"}>
+          <I18nProvider initialLocale={currentLang as "en" | "es" | "fr"}>
             <Navbar />
             {children}
             <Footer />
