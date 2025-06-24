@@ -86,6 +86,7 @@ const VehicleDetailContent = ({ lang }: { lang: Locale }) => {
             <div className="bg-card rounded-2xl p-6 border border-gray-800">
               <h3 className="text-xl font-semibold mb-4 text-kadoshGreen-DEFAULT">{t("gallery", "vehicleDetails")}</h3>
               {vehicle.images.length > 0 ? (
+                <>
                 <Carousel className="w-full" setApi={setCarouselApi}>
                   <CarouselContent>
                     {vehicle.images.map((src, index) => (
@@ -124,6 +125,7 @@ const VehicleDetailContent = ({ lang }: { lang: Locale }) => {
                     ))}
                   </div>
                 )}
+                </>
               ) : (
                 <div className="w-full h-80 bg-gray-800 rounded-xl flex items-center justify-center">
                   <p className="text-gray-500">{t("noVehicles", "vehicleCatalog")}</p>

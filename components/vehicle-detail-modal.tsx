@@ -53,6 +53,7 @@ export default function VehicleDetailModal({ vehicle, isOpen, onClose, onReserve
           <div>
             <h3 className="text-lg font-semibold mb-2 text-kadoshGreen-DEFAULT">{t("gallery", "vehicleDetails")}</h3>
             {vehicle.images.length > 0 ? (
+              <>
               <Carousel className="w-full" setApi={setCarouselApi}>
                 <CarouselContent>
                   {vehicle.images.map((src, index) => (
@@ -93,6 +94,7 @@ export default function VehicleDetailModal({ vehicle, isOpen, onClose, onReserve
                   ))}
                 </div>
               )}
+              </>
             ) : (
               <p className="text-muted-foreground">{t("noImages", "vehicleDetails")}</p>
             )}
