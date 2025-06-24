@@ -90,7 +90,7 @@ export default function ReservationModal({ vehicle, isOpen, onClose }: Reservati
         const result = await submitReservation(data)
         if (result.success) {
           toast({
-            title: "¡Éxito!",
+            title: t("success", "common"),
             description: t("successMessage", "reservationForm"),
             variant: "default",
             className: "bg-kadoshGreen-DEFAULT text-kadoshBlack-DEFAULT",
@@ -104,7 +104,7 @@ export default function ReservationModal({ vehicle, isOpen, onClose }: Reservati
           onClose()
         } else {
           toast({
-            title: "Error",
+            title: t("error", "common"),
             description: result.message || t("errorMessage", "reservationForm"),
             variant: "destructive",
           })
@@ -112,7 +112,7 @@ export default function ReservationModal({ vehicle, isOpen, onClose }: Reservati
         }
       } catch (error) {
         toast({
-          title: "Error",
+          title: t("error", "common"),
           description: t("errorMessage", "reservationForm"),
           variant: "destructive",
         })

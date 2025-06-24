@@ -63,7 +63,7 @@ export async function submitReservation(formData: ReservationFormDataServer) {
       await resend.emails.send({
         from: "Kadosh RentCar <noreply@yourdomain.com>", // Replace with your verified Resend domain
         to: KADOSH_EMAIL,
-        reply_to: data.email,
+        replyTo: data.email,
         subject: emailSubject,
         html: emailBody,
       })

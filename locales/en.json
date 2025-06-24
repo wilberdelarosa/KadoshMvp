@@ -43,7 +43,8 @@
     "address": "Address:",
     "availability": "We work 24 hours at your disposal.",
     "delivery": "We deliver anywhere.",
-    "payments": "We accept"
+    "payments": "We accept",
+    "rightsReserved": "WebNovaLab. All rights reserved."
   },
   "vehicleDetails": {
     "title": "Vehicle Details",
