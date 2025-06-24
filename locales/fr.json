@@ -11,7 +11,15 @@
     "close": "Fermer",
     "bookNow": "Réserver Maintenant",
     "selectDate": "Sélectionner Date",
-    "selectTime": "Sélectionner Heure"
+    "selectTime": "Sélectionner Heure",
+    "whatsapp": "WhatsApp",
+    "email": "Email",
+    "call": "Appeler",
+    "clearFilters": "Effacer Filtres",
+    "category": "Catégorie",
+    "success": "Succès",
+    "error": "Erreur",
+    "language": "Langue"
   },
   "categories": {
     "sedan": "Berline",
@@ -34,7 +42,8 @@
     "submit": "Envoyer la Demande de Réservation",
     "successMessage": "Demande de réservation envoyée avec succès ! Nous vous contacterons sous peu.",
     "errorMessage": "Échec de l'envoi de la demande de réservation. Veuillez réessayer.",
-    "downloadICS": "Ajouter au Calendrier (.ics)"
+    "downloadICS": "Ajouter au Calendrier (.ics)",
+    "additionalCommentsPlaceholder": "Toute demande spéciale ou commentaire..."
   },
   "footer": {
     "contactUs": "Contactez-nous",
@@ -43,7 +52,8 @@
     "address": "Adresse:",
     "availability": "Nous travaillons 24 heures à votre disposition.",
     "delivery": "Nous livrons partout.",
-    "payments": "Nous acceptons"
+    "payments": "Nous acceptons",
+    "rightsReserved": "WebNovaLab. Tous droits réservés."
   },
   "vehicleDetails": {
     "title": "Détails du Véhicule",
