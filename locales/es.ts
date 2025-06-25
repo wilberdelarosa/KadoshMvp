@@ -57,8 +57,6 @@ const es: Translations = {
     tryDifferentFilters: "Intenta ajustar tus filtros",
     searchPlaceholder: "Buscar vehículos...",
     filters: "Filtros",
-    priceRange: "Rango de precio",
-    minSeats: "Mínimo de asientos",
   },
   reservationForm: {
     title: "Hacer una Reserva",
