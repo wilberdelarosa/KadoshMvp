@@ -1,7 +1,12 @@
 "use client"
 
-import React, { useState, useEffect } from "react"
-import { useParams } from "next/navigation"
+
+
+import { useState, useEffect, use } from "react"
+
+import React, {
+import { useParams, useRouter } from "next/navigation"
+
 import Image from "next/image"
 import Link from "next/link"
 import { vehiclesData } from "@/lib/vehicles"
