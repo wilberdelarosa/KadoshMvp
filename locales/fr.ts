@@ -57,6 +57,9 @@ const fr: Translations = {
     tryDifferentFilters: "Essayez d'ajuster vos filtres",
     searchPlaceholder: "Rechercher véhicules...",
     filters: "Filtres",
+    minPrice: "Prix Min",
+    maxPrice: "Prix Max",
+    minSeats: "Sièges Min",
   },
   reservationForm: {
     title: "Faire une Réservation",
