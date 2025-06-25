@@ -7,6 +7,7 @@ import VehicleCard from "@/components/vehicle-card"
 import ReservationModal from "@/components/reservation-modal"
 import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import { Slider } from "@/components/ui/slider"
 import { Button } from "@/components/ui/button"
 import { Search, Filter, XCircle, Star, Clock, MapPin, CreditCard } from "lucide-react"
 import { useI18n, I18nProvider } from "@/context/i18n-context"
@@ -19,13 +20,24 @@ const PageContent = ({ lang }: { lang: Locale }) => {
   const [selectedCategory, setSelectedCategory] = useState<string>("all")
   const [selectedVehicleForReservation, setSelectedVehicleForReservation] = useState<Vehicle | null>(null)
   const [isReservationModalOpen, setIsReservationModalOpen] = useState(false)
-  const [minPrice, setMinPrice] = useState("")
-  const [maxPrice, setMaxPrice] = useState("")
+  const priceBounds = useMemo(() => {
+    const prices = vehiclesData.map((v) => v.pricePerDay)
+    return { min: Math.min(...prices), max: Math.max(...prices) }
+  }, [])
+  const [priceRange, setPriceRange] = useState<[number, number]>([
+    priceBounds.min,
+    priceBounds.max,
+  ])
   const [minSeats, setMinSeats] = useState("")
 
   const categories = useMemo(() => {
     const cats = new Set(vehiclesData.map((v) => v.category))
     return Array.from(cats)
+  }, [])
+
+  const seatOptions = useMemo(() => {
+    const seats = new Set(vehiclesData.map((v) => v.seats))
+    return Array.from(seats).sort((a, b) => a - b)
   }, [])
 
   useEffect(() => {
@@ -36,17 +48,17 @@ const PageContent = ({ lang }: { lang: Locale }) => {
     if (selectedCategory !== "all") {
       vehicles = vehicles.filter((v) => v.category === selectedCategory)
     }
-    if (minPrice) {
-      vehicles = vehicles.filter((v) => v.pricePerDay >= parseInt(minPrice))
+    if (priceRange[0] > priceBounds.min) {
+      vehicles = vehicles.filter((v) => v.pricePerDay >= priceRange[0])
     }
-    if (maxPrice) {
-      vehicles = vehicles.filter((v) => v.pricePerDay <= parseInt(maxPrice))
+    if (priceRange[1] < priceBounds.max) {
+      vehicles = vehicles.filter((v) => v.pricePerDay <= priceRange[1])
     }
     if (minSeats) {
       vehicles = vehicles.filter((v) => v.seats >= parseInt(minSeats))
     }
     setFilteredVehicles(vehicles)
-  }, [searchTerm, selectedCategory, minPrice, maxPrice, minSeats])
+  }, [searchTerm, selectedCategory, priceRange, minSeats, priceBounds])
 
   const handleReserveClick = (vehicle: Vehicle) => {
     setSelectedVehicleForReservation(vehicle)
@@ -168,45 +180,41 @@ const PageContent = ({ lang }: { lang: Locale }) => {
                 </div>
 
                 <div>
-                  <label htmlFor="minPrice" className="block text-sm font-semibold text-kadoshGreen-DEFAULT mb-3">
-                    {t("minPrice", "common")}
+                  <label htmlFor="priceRange" className="block text-sm font-semibold text-kadoshGreen-DEFAULT mb-3">
+                    {t("minPrice", "common")} - {t("maxPrice", "common")}
                   </label>
-                  <Input
-                    id="minPrice"
-                    type="number"
-                    min="0"
-                    value={minPrice}
-                    onChange={(e) => setMinPrice(e.target.value)}
-                    className="bg-input border-gray-700 focus:border-kadoshGreen-DEFAULT h-12 text-lg"
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="maxPrice" className="block text-sm font-semibold text-kadoshGreen-DEFAULT mb-3">
-                    {t("maxPrice", "common")}
-                  </label>
-                  <Input
-                    id="maxPrice"
-                    type="number"
-                    min="0"
-                    value={maxPrice}
-                    onChange={(e) => setMaxPrice(e.target.value)}
-                    className="bg-input border-gray-700 focus:border-kadoshGreen-DEFAULT h-12 text-lg"
-                  />
+                  <div className="px-2">
+                    <Slider
+                      id="priceRange"
+                      min={priceBounds.min}
+                      max={priceBounds.max}
+                      step={5}
+                      value={priceRange}
+                      onValueChange={(v) => setPriceRange(v as [number, number])}
+                    />
+                    <div className="flex justify-between text-sm mt-2">
+                      <span>${priceRange[0]}</span>
+                      <span>${priceRange[1]}</span>
+                    </div>
+                  </div>
                 </div>
 
                 <div>
                   <label htmlFor="minSeats" className="block text-sm font-semibold text-kadoshGreen-DEFAULT mb-3">
                     {t("minSeats", "common")}
                   </label>
-                  <Input
-                    id="minSeats"
-                    type="number"
-                    min="0"
-                    value={minSeats}
-                    onChange={(e) => setMinSeats(e.target.value)}
-                    className="bg-input border-gray-700 focus:border-kadoshGreen-DEFAULT h-12 text-lg"
-                  />
+                  <Select value={minSeats} onValueChange={setMinSeats}>
+                    <SelectTrigger className="w-full bg-input border-gray-700 focus:border-kadoshGreen-DEFAULT h-12 text-lg">
+                      <SelectValue placeholder={t("minSeats", "common")} />
+                    </SelectTrigger>
+                    <SelectContent className="bg-card border-kadoshGreen-DEFAULT">
+                      {seatOptions.map((seat) => (
+                        <SelectItem key={seat} value={String(seat)}>
+                          {seat}+
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
                 </div>
 
                 <div>
@@ -214,8 +222,7 @@ const PageContent = ({ lang }: { lang: Locale }) => {
                     onClick={() => {
                       setSearchTerm("")
                       setSelectedCategory("all")
-                      setMinPrice("")
-                      setMaxPrice("")
+                      setPriceRange([priceBounds.min, priceBounds.max])
                       setMinSeats("")
                     }}
                     variant="outline"
