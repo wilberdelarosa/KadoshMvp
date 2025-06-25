@@ -27,6 +27,7 @@ export type Translations = {
     whatsapp: string
     email: string
     call: string
+    priceRange: string
     minPrice: string
     maxPrice: string
     minSeats: string

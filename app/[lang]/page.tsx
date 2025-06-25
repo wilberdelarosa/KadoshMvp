@@ -9,6 +9,8 @@ import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Button } from "@/components/ui/button"
 import { Search, Filter, XCircle, Star, Clock, MapPin, CreditCard } from "lucide-react"
+import { Combobox } from "@/components/ui/combobox"
+import { RangeSlider } from "@/components/ui/range-slider"
 import { useI18n, I18nProvider } from "@/context/i18n-context"
 import { Toaster } from "@/components/ui/toaster"
 
@@ -19,13 +21,26 @@ const PageContent = ({ lang }: { lang: Locale }) => {
   const [selectedCategory, setSelectedCategory] = useState<string>("all")
   const [selectedVehicleForReservation, setSelectedVehicleForReservation] = useState<Vehicle | null>(null)
   const [isReservationModalOpen, setIsReservationModalOpen] = useState(false)
-  const [minPrice, setMinPrice] = useState("")
-  const [maxPrice, setMaxPrice] = useState("")
+  const maxPriceAvailable = useMemo(
+    () => Math.max(...vehiclesData.map((v) => v.pricePerDay)),
+    []
+  )
+  const [priceRange, setPriceRange] = useState<[number, number]>([
+    0,
+    maxPriceAvailable,
+  ])
   const [minSeats, setMinSeats] = useState("")
 
   const categories = useMemo(() => {
     const cats = new Set(vehiclesData.map((v) => v.category))
     return Array.from(cats)
+  }, [])
+
+  const seatOptions = useMemo(() => {
+    const unique = Array.from(new Set(vehiclesData.map((v) => v.seats))).sort(
+      (a, b) => a - b
+    )
+    return unique.map((s) => ({ value: s.toString(), label: s.toString() }))
   }, [])
 
   useEffect(() => {
@@ -36,17 +51,17 @@ const PageContent = ({ lang }: { lang: Locale }) => {
     if (selectedCategory !== "all") {
       vehicles = vehicles.filter((v) => v.category === selectedCategory)
     }
-    if (minPrice) {
-      vehicles = vehicles.filter((v) => v.pricePerDay >= parseInt(minPrice))
+    if (priceRange[0] > 0) {
+      vehicles = vehicles.filter((v) => v.pricePerDay >= priceRange[0])
     }
-    if (maxPrice) {
-      vehicles = vehicles.filter((v) => v.pricePerDay <= parseInt(maxPrice))
+    if (priceRange[1] < maxPriceAvailable) {
+      vehicles = vehicles.filter((v) => v.pricePerDay <= priceRange[1])
     }
     if (minSeats) {
       vehicles = vehicles.filter((v) => v.seats >= parseInt(minSeats))
     }
     setFilteredVehicles(vehicles)
-  }, [searchTerm, selectedCategory, minPrice, maxPrice, minSeats])
+  }, [searchTerm, selectedCategory, priceRange, minSeats, maxPriceAvailable])
 
   const handleReserveClick = (vehicle: Vehicle) => {
     setSelectedVehicleForReservation(vehicle)
@@ -168,44 +183,35 @@ const PageContent = ({ lang }: { lang: Locale }) => {
                 </div>
 
                 <div>
-                  <label htmlFor="minPrice" className="block text-sm font-semibold text-kadoshGreen-DEFAULT mb-3">
-                    {t("minPrice", "common")}
+                  <label className="block text-sm font-semibold text-kadoshGreen-DEFAULT mb-3">
+                    {t("priceRange", "common")}
                   </label>
-                  <Input
-                    id="minPrice"
-                    type="number"
-                    min="0"
-                    value={minPrice}
-                    onChange={(e) => setMinPrice(e.target.value)}
-                    className="bg-input border-gray-700 focus:border-kadoshGreen-DEFAULT h-12 text-lg"
-                  />
-                </div>
-
-                <div>
-                  <label htmlFor="maxPrice" className="block text-sm font-semibold text-kadoshGreen-DEFAULT mb-3">
-                    {t("maxPrice", "common")}
-                  </label>
-                  <Input
-                    id="maxPrice"
-                    type="number"
-                    min="0"
-                    value={maxPrice}
-                    onChange={(e) => setMaxPrice(e.target.value)}
-                    className="bg-input border-gray-700 focus:border-kadoshGreen-DEFAULT h-12 text-lg"
-                  />
+                  <div className="flex items-center gap-2">
+                    <span className="text-sm text-gray-400 w-10 text-right">
+                      ${priceRange[0]}
+                    </span>
+                    <RangeSlider
+                      min={0}
+                      max={maxPriceAvailable}
+                      step={5}
+                      value={priceRange}
+                      onValueChange={setPriceRange}
+                    />
+                    <span className="text-sm text-gray-400 w-10">
+                      ${priceRange[1]}
+                    </span>
+                  </div>
                 </div>
 
                 <div>
                   <label htmlFor="minSeats" className="block text-sm font-semibold text-kadoshGreen-DEFAULT mb-3">
                     {t("minSeats", "common")}
                   </label>
-                  <Input
-                    id="minSeats"
-                    type="number"
-                    min="0"
+                  <Combobox
+                    options={seatOptions}
                     value={minSeats}
-                    onChange={(e) => setMinSeats(e.target.value)}
-                    className="bg-input border-gray-700 focus:border-kadoshGreen-DEFAULT h-12 text-lg"
+                    onValueChange={setMinSeats}
+                    placeholder={t("minSeats", "common")}
                   />
                 </div>
 
@@ -214,8 +220,7 @@ const PageContent = ({ lang }: { lang: Locale }) => {
                     onClick={() => {
                       setSearchTerm("")
                       setSelectedCategory("all")
-                      setMinPrice("")
-                      setMaxPrice("")
+                      setPriceRange([0, maxPriceAvailable])
                       setMinSeats("")
                     }}
                     variant="outline"
