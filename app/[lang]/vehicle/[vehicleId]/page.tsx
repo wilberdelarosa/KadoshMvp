@@ -1,10 +1,12 @@
 "use client"
 
 
+
 import { useState, useEffect, use } from "react"
 
 import React, {
 import { useParams, useRouter } from "next/navigation"
+
 import Image from "next/image"
 import Link from "next/link"
 import { vehiclesData } from "@/lib/vehicles"
@@ -21,7 +23,6 @@ import { Toaster } from "@/components/ui/toaster"
 const VehicleDetailContent = ({ lang }: { lang: Locale }) => {
   const { t } = useI18n()
   const params = useParams()
-  const router = useRouter()
   const [vehicle, setVehicle] = useState<Vehicle | null>(null)
   const [showReservationForm, setShowReservationForm] = useState(false)
   const [carouselApi, setCarouselApi] = useState<CarouselApi | null>(null)
@@ -157,7 +158,7 @@ const VehicleDetailContent = ({ lang }: { lang: Locale }) => {
                 <div className="flex items-center gap-3 p-3 bg-kadoshBlack-light rounded-lg">
                   <Tag size={20} className="text-kadoshGreen-DEFAULT" />
                   <span className="font-medium text-kadoshGreen-DEFAULT">
-                    ${vehicle.pricePerDay} {t("pricePerDay", "vehicleDetails")}
+                    {`$${vehicle.pricePerDay}`} {t("pricePerDay", "vehicleDetails")}
                   </span>
                 </div>
               </div>
@@ -210,7 +211,7 @@ const VehicleDetailContent = ({ lang }: { lang: Locale }) => {
 }
 
 export default function VehicleDetailPage({ params }: { params: any }) {
-  const { lang } = use(params) as { lang: Locale }
+  const { lang } = params as { lang: Locale }
   const currentLang = ["en", "es", "fr"].includes(lang) ? lang : "en"
 
   return (

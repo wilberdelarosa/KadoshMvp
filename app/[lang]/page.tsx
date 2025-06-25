@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect, useMemo, use } from "react"
+import { useState, useEffect, useMemo } from "react"
 import { vehiclesData } from "@/lib/vehicles"
 import type { Vehicle, Locale } from "@/lib/types"
 import VehicleCard from "@/components/vehicle-card"
@@ -8,6 +8,7 @@ import ReservationModal from "@/components/reservation-modal"
 import { Input } from "@/components/ui/input"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Button } from "@/components/ui/button"
+import { Slider } from "@/components/ui/slider"
 import { Search, Filter, XCircle, Star, Clock, MapPin, CreditCard } from "lucide-react"
 import { useI18n, I18nProvider } from "@/context/i18n-context"
 import { Toaster } from "@/components/ui/toaster"
@@ -19,6 +20,17 @@ const PageContent = ({ lang }: { lang: Locale }) => {
   const [selectedCategory, setSelectedCategory] = useState<string>("all")
   const [selectedVehicleForReservation, setSelectedVehicleForReservation] = useState<Vehicle | null>(null)
   const [isReservationModalOpen, setIsReservationModalOpen] = useState(false)
+
+  const prices = useMemo(() => vehiclesData.map((v) => v.pricePerDay), [])
+  const minPrice = Math.min(...prices)
+  const maxPrice = Math.max(...prices)
+  const [priceRange, setPriceRange] = useState<[number, number]>([minPrice, maxPrice])
+
+  const seatOptions = useMemo(() => {
+    const s = Array.from(new Set(vehiclesData.map((v) => v.seats)))
+    return s.sort((a, b) => a - b)
+  }, [])
+  const [minSeats, setMinSeats] = useState(0)
 
   const categories = useMemo(() => {
     const cats = new Set(vehiclesData.map((v) => v.category))
@@ -33,8 +45,14 @@ const PageContent = ({ lang }: { lang: Locale }) => {
     if (selectedCategory !== "all") {
       vehicles = vehicles.filter((v) => v.category === selectedCategory)
     }
+    vehicles = vehicles.filter(
+      (v) => v.pricePerDay >= priceRange[0] && v.pricePerDay <= priceRange[1]
+    )
+    if (minSeats > 0) {
+      vehicles = vehicles.filter((v) => v.seats >= minSeats)
+    }
     setFilteredVehicles(vehicles)
-  }, [searchTerm, selectedCategory])
+  }, [searchTerm, selectedCategory, priceRange, minSeats])
 
   const handleReserveClick = (vehicle: Vehicle) => {
     setSelectedVehicleForReservation(vehicle)
@@ -119,7 +137,7 @@ const PageContent = ({ lang }: { lang: Locale }) => {
             {/* Filters */}
             <div className="mb-12 p-8 bg-card rounded-2xl shadow-2xl border border-gray-800">
               <h3 className="text-xl font-semibold text-kadoshGreen-DEFAULT mb-6">{t("filters", "vehicleCatalog")}</h3>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-end">
+              <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-5 gap-6 items-end">
                 <div>
                   <label htmlFor="search" className="block text-sm font-semibold text-kadoshGreen-DEFAULT mb-3">
                     <Search size={16} className="inline mr-2" />
@@ -156,11 +174,44 @@ const PageContent = ({ lang }: { lang: Locale }) => {
                 </div>
 
                 <div>
+                  <label className="block text-sm font-semibold text-kadoshGreen-DEFAULT mb-3">
+                    {t("priceRange", "vehicleCatalog")}: ${priceRange[0]} - ${priceRange[1]}
+                  </label>
+                  <Slider
+                    min={minPrice}
+                    max={maxPrice}
+                    step={5}
+                    value={priceRange}
+                    onValueChange={setPriceRange}
+                    className="w-full"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-semibold text-kadoshGreen-DEFAULT mb-3">
+                    {t("minSeats", "vehicleCatalog")}
+                  </label>
+                  <Select value={String(minSeats)} onValueChange={(v) => setMinSeats(Number(v))}>
+                    <SelectTrigger className="w-full bg-input border-gray-700 focus:border-kadoshGreen-DEFAULT h-12 text-lg">
+                      <SelectValue placeholder="" />
+                    </SelectTrigger>
+                    <SelectContent className="bg-card border-kadoshGreen-DEFAULT">
+                      <SelectItem value="0">-</SelectItem>
+                      {seatOptions.map((s) => (
+                        <SelectItem key={s} value={String(s)}>{s}</SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                <div>
                   <Button
-                    onClick={() => {
-                      setSearchTerm("")
-                      setSelectedCategory("all")
-                    }}
+                  onClick={() => {
+                    setSearchTerm("")
+                    setSelectedCategory("all")
+                    setPriceRange([minPrice, maxPrice])
+                    setMinSeats(0)
+                  }}
                     variant="outline"
                     className="w-full border-kadoshGreen-DEFAULT text-kadoshGreen-DEFAULT hover:bg-kadoshGreen-DEFAULT hover:text-kadoshBlack-DEFAULT h-12 text-lg font-semibold"
                   >
@@ -204,7 +255,7 @@ const PageContent = ({ lang }: { lang: Locale }) => {
 
 
 export default function KadoshVehiclePage({ params }: { params: any }) {
-  const { lang } = use(params) as { lang: Locale }
+  const { lang } = params as { lang: Locale }
   const currentLang = ["en", "es", "fr"].includes(lang) ? lang : "en"
 
   return (
