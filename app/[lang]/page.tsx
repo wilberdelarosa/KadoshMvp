@@ -30,7 +30,10 @@ const PageContent = ({ lang }: { lang: Locale }) => {
     priceLimits.max,
   ])
   const seatOptions = useMemo(
-    () => Array.from(new Set(vehiclesData.map((v) => v.seats))).sort(),
+    () =>
+      Array.from(new Set(vehiclesData.map((v) => v.seats))).sort(
+        (a, b) => a - b
+      ),
     []
   )
   const [minSeats, setMinSeats] = useState<number | "">("")
