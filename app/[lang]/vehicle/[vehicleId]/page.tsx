@@ -1,7 +1,7 @@
 "use client"
 
-import React, { useState, useEffect, use } from "react"
-import { useParams, useRouter } from "next/navigation"
+import React, { useState, useEffect } from "react"
+import { useParams } from "next/navigation"
 import Image from "next/image"
 import Link from "next/link"
 import { vehiclesData } from "@/lib/vehicles"
@@ -18,7 +18,6 @@ import { Toaster } from "@/components/ui/toaster"
 const VehicleDetailContent = ({ lang }: { lang: Locale }) => {
   const { t } = useI18n()
   const params = useParams()
-  const router = useRouter()
   const [vehicle, setVehicle] = useState<Vehicle | null>(null)
   const [showReservationForm, setShowReservationForm] = useState(false)
   const [carouselApi, setCarouselApi] = useState<CarouselApi | null>(null)
@@ -207,7 +206,7 @@ const VehicleDetailContent = ({ lang }: { lang: Locale }) => {
 }
 
 export default function VehicleDetailPage({ params }: { params: any }) {
-  const { lang } = use(params) as { lang: Locale }
+  const { lang } = params as { lang: Locale }
   const currentLang = ["en", "es", "fr"].includes(lang) ? lang : "en"
 
   return (

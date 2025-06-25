@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect, useMemo, use } from "react"
+import { useState, useEffect, useMemo } from "react"
 import { vehiclesData } from "@/lib/vehicles"
 import type { Vehicle, Locale } from "@/lib/types"
 import VehicleCard from "@/components/vehicle-card"
@@ -255,7 +255,7 @@ const PageContent = ({ lang }: { lang: Locale }) => {
 
 
 export default function KadoshVehiclePage({ params }: { params: any }) {
-  const { lang } = use(params) as { lang: Locale }
+  const { lang } = params as { lang: Locale }
   const currentLang = ["en", "es", "fr"].includes(lang) ? lang : "en"
 
   return (
