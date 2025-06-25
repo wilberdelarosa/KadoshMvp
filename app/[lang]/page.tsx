@@ -76,10 +76,10 @@ const PageContent = ({ lang }: { lang: Locale }) => {
         {/* Hero Section */}
         <section className="relative min-h-[80vh] flex items-center justify-center overflow-hidden">
           <div
-            className="absolute inset-0 bg-cover bg-center bg-no-repeat bg-fixed transform scale-110 md:scale-100 transition-transform duration-700"
+            className="absolute inset-0 bg-cover bg-center bg-no-repeat transform scale-110 md:scale-100 transition-transform duration-700"
             style={{ backgroundImage: "url('/bannerPrueba.jpeg')" }}
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-kadoshBlack-DEFAULT/80 via-kadoshBlack-DEFAULT/60 to-transparent" />
+          <div className="absolute inset-0 bg-gradient-to-r from-kadoshBlack-DEFAULT/70 via-kadoshBlack-DEFAULT/40 to-transparent" />
 
           <div className="relative z-10 container mx-auto px-4 text-center lg:text-left">
             <div className="max-w-3xl">
