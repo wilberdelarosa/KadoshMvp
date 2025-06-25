@@ -5,7 +5,6 @@ import Navbar from "@/components/navbar"
 import Footer from "@/components/footer"
 import { ThemeProvider } from "@/components/theme-provider"
 import { I18nProvider } from "@/context/i18n-context" // Import I18nProvider
-import { use } from "react"
 
 
 export const metadata: Metadata = {
@@ -22,7 +21,7 @@ export default function RootLayout({
   children: React.ReactNode
   params: { lang: string } // lang will be passed from [lang] segment
 }>) {
-  const { lang } = use(params as any) as { lang: string }
+  const { lang } = params
   const currentLang = ["en", "es", "fr"].includes(lang) ? lang : "en"
 
   return (
