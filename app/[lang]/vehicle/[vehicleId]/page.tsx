@@ -153,7 +153,7 @@ const VehicleDetailContent = ({ lang }: { lang: Locale }) => {
                 <div className="flex items-center gap-3 p-3 bg-kadoshBlack-light rounded-lg">
                   <Tag size={20} className="text-kadoshGreen-DEFAULT" />
                   <span className="font-medium text-kadoshGreen-DEFAULT">
-                    ${vehicle.pricePerDay} {t("pricePerDay", "vehicleDetails")}
+                    {`$${vehicle.pricePerDay}`} {t("pricePerDay", "vehicleDetails")}
                   </span>
                 </div>
               </div>
