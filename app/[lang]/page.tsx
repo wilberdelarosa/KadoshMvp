@@ -6,8 +6,12 @@ import type { Vehicle, Locale } from "@/lib/types"
 import VehicleCard from "@/components/vehicle-card"
 import ReservationModal from "@/components/reservation-modal"
 import { Input } from "@/components/ui/input"
+import { Slider } from "@/components/ui/slider"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
 import { Button } from "@/components/ui/button"
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion"
+import { ScrollArea } from "@/components/ui/scroll-area"
+import { Checkbox } from "@/components/ui/checkbox"
 import { Search, Filter, XCircle, Star, Clock, MapPin, CreditCard } from "lucide-react"
 import { useI18n, I18nProvider } from "@/context/i18n-context"
 import { Toaster } from "@/components/ui/toaster"
@@ -17,6 +21,33 @@ const PageContent = ({ lang }: { lang: Locale }) => {
   const [filteredVehicles, setFilteredVehicles] = useState<Vehicle[]>(vehiclesData)
   const [searchTerm, setSearchTerm] = useState("")
   const [selectedCategory, setSelectedCategory] = useState<string>("all")
+  const priceLimits = useMemo(() => {
+    const prices = vehiclesData.map((v) => v.pricePerDay)
+    return {
+      min: Math.min(...prices),
+      max: Math.max(...prices),
+    }
+  }, [])
+  const [priceRange, setPriceRange] = useState<[number, number]>([
+    priceLimits.min,
+    priceLimits.max,
+  ])
+  const seatOptions = useMemo(
+    () =>
+      Array.from(new Set(vehiclesData.map((v) => v.seats))).sort(
+        (a, b) => a - b
+      ),
+    []
+  )
+  const featureOptions = useMemo(
+    () =>
+      Array.from(
+        new Set(vehiclesData.flatMap((v) => v.features ?? []))
+      ).sort(),
+    []
+  )
+  const [minSeats, setMinSeats] = useState<number | "">("")
+  const [selectedFeatures, setSelectedFeatures] = useState<string[]>([])
   const [selectedVehicleForReservation, setSelectedVehicleForReservation] = useState<Vehicle | null>(null)
   const [isReservationModalOpen, setIsReservationModalOpen] = useState(false)
 
@@ -33,8 +64,19 @@ const PageContent = ({ lang }: { lang: Locale }) => {
     if (selectedCategory !== "all") {
       vehicles = vehicles.filter((v) => v.category === selectedCategory)
     }
+    vehicles = vehicles.filter(
+      (v) => v.pricePerDay >= priceRange[0] && v.pricePerDay <= priceRange[1]
+    )
+    if (minSeats !== "") {
+      vehicles = vehicles.filter((v) => v.seats >= Number(minSeats))
+    }
+    if (selectedFeatures.length > 0) {
+      vehicles = vehicles.filter((v) =>
+        selectedFeatures.every((f) => v.features?.includes(f))
+      )
+    }
     setFilteredVehicles(vehicles)
-  }, [searchTerm, selectedCategory])
+  }, [searchTerm, selectedCategory, priceRange, minSeats, selectedFeatures])
 
   const handleReserveClick = (vehicle: Vehicle) => {
     setSelectedVehicleForReservation(vehicle)
@@ -119,7 +161,7 @@ const PageContent = ({ lang }: { lang: Locale }) => {
             {/* Filters */}
             <div className="mb-12 p-8 bg-card rounded-2xl shadow-2xl border border-gray-800">
               <h3 className="text-xl font-semibold text-kadoshGreen-DEFAULT mb-6">{t("filters", "vehicleCatalog")}</h3>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-end">
+              <div className="grid grid-cols-1 md:grid-cols-5 gap-6 items-end">
                 <div>
                   <label htmlFor="search" className="block text-sm font-semibold text-kadoshGreen-DEFAULT mb-3">
                     <Search size={16} className="inline mr-2" />
@@ -133,6 +175,82 @@ const PageContent = ({ lang }: { lang: Locale }) => {
                     onChange={(e) => setSearchTerm(e.target.value)}
                     className="bg-input border-gray-700 focus:border-kadoshGreen-DEFAULT h-12 text-lg"
                   />
+                </div>
+
+                <div className="md:col-span-2">
+                  <label className="block text-sm font-semibold text-kadoshGreen-DEFAULT mb-3">
+                    {t("priceRange", "vehicleCatalog")}
+                  </label>
+                  <Slider
+                    value={priceRange}
+                    min={priceLimits.min}
+                    max={priceLimits.max}
+                    step={5}
+                    onValueChange={(val) => setPriceRange(val as [number, number])}
+                    className="w-full"
+                  />
+                  <div className="flex justify-between text-sm text-gray-400 mt-2">
+                    <span>${priceRange[0]}</span>
+                    <span>${priceRange[1]}</span>
+                  </div>
+                </div>
+
+                <div>
+                  <label className="block text-sm font-semibold text-kadoshGreen-DEFAULT mb-3">
+                    {t("seats", "vehicleCatalog")}
+                  </label>
+                  <Select
+                    value={minSeats === "" ? "" : String(minSeats)}
+                    onValueChange={(v) =>
+                      setMinSeats(v === "" ? "" : Number(v))
+                    }
+                  >
+                    <SelectTrigger className="w-full bg-input border-gray-700 focus:border-kadoshGreen-DEFAULT h-12 text-lg">
+                      <SelectValue placeholder="Any" />
+                    </SelectTrigger>
+                    <SelectContent className="bg-card border-kadoshGreen-DEFAULT">
+                      <SelectItem value="">Any</SelectItem>
+                      {seatOptions.map((seat) => (
+                        <SelectItem key={seat} value={String(seat)}>
+                          {seat}+
+                        </SelectItem>
+                      ))}
+                    </SelectContent>
+                  </Select>
+                </div>
+
+                <div className="md:col-span-5">
+                  <Accordion type="single" collapsible>
+                    <AccordionItem value="features">
+                      <AccordionTrigger className="text-sm font-semibold text-kadoshGreen-DEFAULT mb-3">
+                        {t("featuresFilter", "vehicleCatalog")}
+                      </AccordionTrigger>
+                      <AccordionContent>
+                        <ScrollArea className="h-32 pr-2">
+                          <div className="grid grid-cols-2 gap-2">
+                            {featureOptions.map((feature) => (
+                              <label
+                                key={feature}
+                                className="flex items-center gap-2 text-sm"
+                              >
+                                <Checkbox
+                                  checked={selectedFeatures.includes(feature)}
+                                  onCheckedChange={(checked) =>
+                                    setSelectedFeatures((prev) =>
+                                      checked
+                                        ? [...prev, feature]
+                                        : prev.filter((f) => f !== feature)
+                                    )
+                                  }
+                                />
+                                <span>{feature}</span>
+                              </label>
+                            ))}
+                          </div>
+                        </ScrollArea>
+                      </AccordionContent>
+                    </AccordionItem>
+                  </Accordion>
                 </div>
 
                 <div>
@@ -160,6 +278,9 @@ const PageContent = ({ lang }: { lang: Locale }) => {
                     onClick={() => {
                       setSearchTerm("")
                       setSelectedCategory("all")
+                      setPriceRange([priceLimits.min, priceLimits.max])
+                      setMinSeats("")
+                      setSelectedFeatures([])
                     }}
                     variant="outline"
                     className="w-full border-kadoshGreen-DEFAULT text-kadoshGreen-DEFAULT hover:bg-kadoshGreen-DEFAULT hover:text-kadoshBlack-DEFAULT h-12 text-lg font-semibold"

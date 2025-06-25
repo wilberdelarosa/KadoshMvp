@@ -57,6 +57,9 @@ const en: Translations = {
     tryDifferentFilters: "Try adjusting your filters",
     searchPlaceholder: "Search vehicles...",
     filters: "Filters",
+    priceRange: "Price Range",
+    seats: "Seats",
+    featuresFilter: "Features",
   },
   reservationForm: {
     title: "Make a Reservation",
