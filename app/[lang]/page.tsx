@@ -17,6 +17,9 @@ const PageContent = ({ lang }: { lang: Locale }) => {
   const [filteredVehicles, setFilteredVehicles] = useState<Vehicle[]>(vehiclesData)
   const [searchTerm, setSearchTerm] = useState("")
   const [selectedCategory, setSelectedCategory] = useState<string>("all")
+  const [minPrice, setMinPrice] = useState<number | "">("")
+  const [maxPrice, setMaxPrice] = useState<number | "">("")
+  const [minSeats, setMinSeats] = useState<number | "">("")
   const [selectedVehicleForReservation, setSelectedVehicleForReservation] = useState<Vehicle | null>(null)
   const [isReservationModalOpen, setIsReservationModalOpen] = useState(false)
 
@@ -33,8 +36,17 @@ const PageContent = ({ lang }: { lang: Locale }) => {
     if (selectedCategory !== "all") {
       vehicles = vehicles.filter((v) => v.category === selectedCategory)
     }
+    if (minPrice !== "") {
+      vehicles = vehicles.filter((v) => v.pricePerDay >= Number(minPrice))
+    }
+    if (maxPrice !== "") {
+      vehicles = vehicles.filter((v) => v.pricePerDay <= Number(maxPrice))
+    }
+    if (minSeats !== "") {
+      vehicles = vehicles.filter((v) => v.seats >= Number(minSeats))
+    }
     setFilteredVehicles(vehicles)
-  }, [searchTerm, selectedCategory])
+  }, [searchTerm, selectedCategory, minPrice, maxPrice, minSeats])
 
   const handleReserveClick = (vehicle: Vehicle) => {
     setSelectedVehicleForReservation(vehicle)
@@ -119,7 +131,7 @@ const PageContent = ({ lang }: { lang: Locale }) => {
             {/* Filters */}
             <div className="mb-12 p-8 bg-card rounded-2xl shadow-2xl border border-gray-800">
               <h3 className="text-xl font-semibold text-kadoshGreen-DEFAULT mb-6">{t("filters", "vehicleCatalog")}</h3>
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-6 items-end">
+              <div className="grid grid-cols-1 md:grid-cols-5 gap-6 items-end">
                 <div>
                   <label htmlFor="search" className="block text-sm font-semibold text-kadoshGreen-DEFAULT mb-3">
                     <Search size={16} className="inline mr-2" />
@@ -131,6 +143,48 @@ const PageContent = ({ lang }: { lang: Locale }) => {
                     placeholder={t("searchPlaceholder", "vehicleCatalog")}
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
+                    className="bg-input border-gray-700 focus:border-kadoshGreen-DEFAULT h-12 text-lg"
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="minPrice" className="block text-sm font-semibold text-kadoshGreen-DEFAULT mb-3">
+                    {t("minPrice", "vehicleCatalog")}
+                  </label>
+                  <Input
+                    id="minPrice"
+                    type="number"
+                    min={0}
+                    value={minPrice}
+                    onChange={(e) => setMinPrice(e.target.value === "" ? "" : Number(e.target.value))}
+                    className="bg-input border-gray-700 focus:border-kadoshGreen-DEFAULT h-12 text-lg"
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="maxPrice" className="block text-sm font-semibold text-kadoshGreen-DEFAULT mb-3">
+                    {t("maxPrice", "vehicleCatalog")}
+                  </label>
+                  <Input
+                    id="maxPrice"
+                    type="number"
+                    min={0}
+                    value={maxPrice}
+                    onChange={(e) => setMaxPrice(e.target.value === "" ? "" : Number(e.target.value))}
+                    className="bg-input border-gray-700 focus:border-kadoshGreen-DEFAULT h-12 text-lg"
+                  />
+                </div>
+
+                <div>
+                  <label htmlFor="minSeats" className="block text-sm font-semibold text-kadoshGreen-DEFAULT mb-3">
+                    {t("minSeats", "vehicleCatalog")}
+                  </label>
+                  <Input
+                    id="minSeats"
+                    type="number"
+                    min={1}
+                    value={minSeats}
+                    onChange={(e) => setMinSeats(e.target.value === "" ? "" : Number(e.target.value))}
                     className="bg-input border-gray-700 focus:border-kadoshGreen-DEFAULT h-12 text-lg"
                   />
                 </div>
@@ -160,6 +214,9 @@ const PageContent = ({ lang }: { lang: Locale }) => {
                     onClick={() => {
                       setSearchTerm("")
                       setSelectedCategory("all")
+                      setMinPrice("")
+                      setMaxPrice("")
+                      setMinSeats("")
                     }}
                     variant="outline"
                     className="w-full border-kadoshGreen-DEFAULT text-kadoshGreen-DEFAULT hover:bg-kadoshGreen-DEFAULT hover:text-kadoshBlack-DEFAULT h-12 text-lg font-semibold"
