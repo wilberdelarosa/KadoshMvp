@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect, useMemo, use } from "react"
+import { useState, useEffect, useMemo } from "react"
 import { vehiclesData } from "@/lib/vehicles"
 import type { Vehicle, Locale } from "@/lib/types"
 import VehicleCard from "@/components/vehicle-card"
@@ -24,10 +24,7 @@ const PageContent = ({ lang }: { lang: Locale }) => {
     const prices = vehiclesData.map((v) => v.pricePerDay)
     return { min: Math.min(...prices), max: Math.max(...prices) }
   }, [])
-  const [priceRange, setPriceRange] = useState<[number, number]>([
-    priceBounds.min,
-    priceBounds.max,
-  ])
+  const [priceRange, setPriceRange] = useState<[number, number]>([priceBounds.min, priceBounds.max])
   const [minSeats, setMinSeats] = useState("")
 
   const categories = useMemo(() => {
@@ -55,7 +52,7 @@ const PageContent = ({ lang }: { lang: Locale }) => {
       vehicles = vehicles.filter((v) => v.pricePerDay <= priceRange[1])
     }
     if (minSeats) {
-      vehicles = vehicles.filter((v) => v.seats >= parseInt(minSeats))
+      vehicles = vehicles.filter((v) => v.seats >= Number.parseInt(minSeats))
     }
     setFilteredVehicles(vehicles)
   }, [searchTerm, selectedCategory, priceRange, minSeats, priceBounds])
@@ -77,9 +74,7 @@ const PageContent = ({ lang }: { lang: Locale }) => {
         <section className="relative min-h-[80vh] flex items-center justify-center overflow-hidden">
           <div
             className="absolute inset-0 bg-cover bg-center bg-no-repeat"
-            style={{
-              backgroundImage: `url('/placeholder.svg?width=1920&height=1080&text=Luxury+Cars+Punta+Cana')`,
-            }}
+            style={{ backgroundImage: `url('/bannerPrueba.jpeg')` }}
           />
           <div className="absolute inset-0 bg-gradient-to-r from-kadoshBlack-DEFAULT/90 via-kadoshBlack-DEFAULT/70 to-transparent" />
 
@@ -104,7 +99,7 @@ const PageContent = ({ lang }: { lang: Locale }) => {
                 <Button
                   variant="outline"
                   size="lg"
-                  className="border-2 border-kadoshGreen-DEFAULT text-kadoshGreen-DEFAULT hover:bg-kadoshGreen-DEFAULT hover:text-kadoshBlack-DEFAULT text-lg px-8 py-4 h-auto font-semibold"
+                  className="border-2 border-kadoshGreen-DEFAULT text-kadoshGreen-DEFAULT hover:bg-kadoshGreen-DEFAULT hover:text-kadoshBlack-DEFAULT text-lg px-8 py-4 h-auto font-semibold bg-transparent"
                   onClick={() => window.open("https://wa.me/18299391365", "_blank")}
                 >
                   {t("whatsapp", "common")}
@@ -266,10 +261,9 @@ const PageContent = ({ lang }: { lang: Locale }) => {
   )
 }
 
-
-export default function KadoshVehiclePage({ params }: { params: any }) {
-  const { lang } = use(params) as { lang: Locale }
-  const currentLang = ["en", "es", "fr"].includes(lang) ? lang : "en"
+export default function KadoshVehiclePage({ params }: { params: { lang: Locale } }) {
+  const lang = params.lang
+  const currentLang: Locale = ["en", "es", "fr"].includes(lang) ? lang : "en"
 
   return (
     <I18nProvider initialLocale={currentLang}>

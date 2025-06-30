@@ -18,13 +18,11 @@ export default function VehicleCard({ vehicle, onReserveClick }: VehicleCardProp
   const { t, locale } = useI18n()
 
   return (
-    <Card
-      className="bg-card overflow-hidden shadow-xl hover:shadow-2xl hover:shadow-kadoshGreen-DEFAULT/20 transition-all duration-300 flex flex-col h-full group border border-gray-800 hover:border-kadoshGreen-DEFAULT/50 transform hover:-translate-y-1"
-    >
+    <Card className="bg-card overflow-hidden shadow-xl hover:shadow-2xl hover:shadow-kadoshGreen-DEFAULT/20 transition-all duration-300 flex flex-col h-full group border border-gray-800 hover:border-kadoshGreen-DEFAULT/50 transform hover:-translate-y-1">
       <CardHeader className="p-0 relative">
         <div className="relative w-full h-56 overflow-hidden">
           <Image
-            src={vehicle.images[0] || "/placeholder.svg?width=400&height=300"}
+            src={vehicle.images[0] || "/image.png"}
             alt={vehicle.name}
             fill
             className="object-cover transition-transform duration-500 group-hover:scale-110"
@@ -69,7 +67,7 @@ export default function VehicleCard({ vehicle, onReserveClick }: VehicleCardProp
         <Link href={`/${locale}/vehicle/${vehicle.id}`} className="w-full">
           <Button
             variant="outline"
-            className="w-full border-kadoshGreen-DEFAULT text-kadoshGreen-DEFAULT hover:bg-kadoshGreen-DEFAULT hover:text-kadoshBlack-DEFAULT transition-all duration-200 group/btn"
+            className="w-full border-kadoshGreen-DEFAULT text-kadoshGreen-DEFAULT hover:bg-kadoshGreen-DEFAULT hover:text-kadoshBlack-DEFAULT transition-all duration-200 group/btn bg-transparent"
           >
             {t("viewDetails", "vehicleCatalog")}
             <ArrowRight size={16} className="ml-2 group-hover/btn:translate-x-1 transition-transform" />

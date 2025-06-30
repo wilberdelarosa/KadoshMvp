@@ -1,5 +1,5 @@
 "use client"
-import React, { useState, useEffect } from "react"
+import { useState, useEffect } from "react"
 import Image from "next/image"
 import type { Vehicle } from "@/lib/types"
 import { cn } from "@/lib/utils"
@@ -13,7 +13,14 @@ import {
   DialogClose,
 } from "@/components/ui/dialog"
 import { Button } from "@/components/ui/button"
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious, type CarouselApi } from "@/components/ui/carousel"
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+  type CarouselApi,
+} from "@/components/ui/carousel"
 import { Users, Zap, Info, CheckCircle } from "lucide-react"
 import { useI18n } from "@/context/i18n-context"
 
@@ -54,46 +61,44 @@ export default function VehicleDetailModal({ vehicle, isOpen, onClose, onReserve
             <h3 className="text-lg font-semibold mb-2 text-kadoshGreen-DEFAULT">{t("gallery", "vehicleDetails")}</h3>
             {vehicle.images.length > 0 ? (
               <>
-              <Carousel className="w-full" setApi={setCarouselApi}>
-                <CarouselContent>
-                  {vehicle.images.map((src, index) => (
-                    <CarouselItem key={index}>
-                      <div className="relative w-full h-64 rounded-md overflow-hidden">
-                        <Image
-                          src={src || "/placeholder.svg"}
-                          alt={`${vehicle.name} image ${index + 1}`}
-                          layout="fill"
-                          objectFit="cover"
-                        />
-                      </div>
-                    </CarouselItem>
-                  ))}
-                </CarouselContent>
+                <Carousel className="w-full" setApi={setCarouselApi}>
+                  <CarouselContent>
+                    {vehicle.images.map((src, index) => (
+                      <CarouselItem key={index}>
+                        <div className="relative w-full h-64 rounded-md overflow-hidden">
+                          <Image
+                            src={src || "/image.png"}
+                            alt={`${vehicle.name} image ${index + 1}`}
+                            fill
+                            className="object-cover"
+                          />
+                        </div>
+                      </CarouselItem>
+                    ))}
+                  </CarouselContent>
+                  {vehicle.images.length > 1 && (
+                    <>
+                      <CarouselPrevious className="absolute left-2 top-1/2 -translate-y-1/2 bg-kadoshBlack-light/70 text-kadoshGreen-DEFAULT hover:bg-kadoshGreen-DEFAULT hover:text-kadoshBlack-light border-kadoshGreen-DEFAULT" />
+                      <CarouselNext className="absolute right-2 top-1/2 -translate-y-1/2 bg-kadoshBlack-light/70 text-kadoshGreen-DEFAULT hover:bg-kadoshGreen-DEFAULT hover:text-kadoshBlack-light border-kadoshGreen-DEFAULT" />
+                    </>
+                  )}
+                </Carousel>
                 {vehicle.images.length > 1 && (
-                  <>
-                    <CarouselPrevious className="absolute left-2 top-1/2 -translate-y-1/2 bg-kadoshBlack-light/70 text-kadoshGreen-DEFAULT hover:bg-kadoshGreen-DEFAULT hover:text-kadoshBlack-light border-kadoshGreen-DEFAULT" />
-                    <CarouselNext className="absolute right-2 top-1/2 -translate-y-1/2 bg-kadoshBlack-light/70 text-kadoshGreen-DEFAULT hover:bg-kadoshGreen-DEFAULT hover:text-kadoshBlack-light border-kadoshGreen-DEFAULT" />
-                  </>
+                  <div className="mt-3 flex justify-center gap-2 overflow-x-auto">
+                    {vehicle.images.map((src, idx) => (
+                      <button
+                        key={idx}
+                        onClick={() => carouselApi?.scrollTo(idx)}
+                        className={cn(
+                          "relative h-12 w-20 rounded overflow-hidden border-2",
+                          idx === selectedIndex ? "border-kadoshGreen-DEFAULT" : "border-transparent",
+                        )}
+                      >
+                        <Image src={src || "/placeholder.svg"} alt={`thumb ${idx + 1}`} fill className="object-cover" />
+                      </button>
+                    ))}
+                  </div>
                 )}
-              </Carousel>
-              {vehicle.images.length > 1 && (
-                <div className="mt-3 flex justify-center gap-2 overflow-x-auto">
-                  {vehicle.images.map((src, idx) => (
-                    <button
-                      key={idx}
-                      onClick={() => carouselApi?.scrollTo(idx)}
-                      className={cn(
-                        "relative h-12 w-20 rounded overflow-hidden border-2",
-                        idx === selectedIndex
-                          ? "border-kadoshGreen-DEFAULT"
-                          : "border-transparent"
-                      )}
-                    >
-                      <Image src={src} alt={`thumb ${idx + 1}`} fill className="object-cover" />
-                    </button>
-                  ))}
-                </div>
-              )}
               </>
             ) : (
               <p className="text-muted-foreground">{t("noImages", "vehicleDetails")}</p>
@@ -145,7 +150,7 @@ export default function VehicleDetailModal({ vehicle, isOpen, onClose, onReserve
             <Button
               type="button"
               variant="outline"
-              className="border-kadoshGreen-DEFAULT text-kadoshGreen-DEFAULT hover:bg-kadoshGreen-DEFAULT hover:text-kadoshBlack-DEFAULT"
+              className="border-kadoshGreen-DEFAULT text-kadoshGreen-DEFAULT hover:bg-kadoshGreen-DEFAULT hover:text-kadoshBlack-DEFAULT bg-transparent"
             >
               {t("close", "common")}
             </Button>
