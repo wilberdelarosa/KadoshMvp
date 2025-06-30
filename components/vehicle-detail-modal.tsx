@@ -94,7 +94,7 @@ export default function VehicleDetailModal({ vehicle, isOpen, onClose, onReserve
                           idx === selectedIndex ? "border-kadoshGreen-DEFAULT" : "border-transparent",
                         )}
                       >
-                        <Image src={src || "/placeholder.svg"} alt={`thumb ${idx + 1}`} fill className="object-cover" />
+                        <Image src={src || "/image.png"} alt={`thumb ${idx + 1}`} fill className="object-cover" />
                       </button>
                     ))}
                   </div>

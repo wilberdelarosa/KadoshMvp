@@ -26,41 +26,40 @@ const config = {
         background: "hsl(var(--background))",
         foreground: "hsl(var(--foreground))",
         primary: {
-          DEFAULT: "hsl(var(--primary))", // Kadosh Green
-          foreground: "hsl(var(--primary-foreground))", // Black for text on green
+          DEFAULT: "hsl(var(--primary))",
+          foreground: "hsl(var(--primary-foreground))",
         },
         secondary: {
-          DEFAULT: "hsl(var(--secondary))", // Dark Gray / Off-black
-          foreground: "hsl(var(--secondary-foreground))", // Light Gray / White
-        },
-        destructive: {
-          DEFAULT: "hsl(var(--destructive))",
-          foreground: "hsl(var(--destructive-foreground))",
+          DEFAULT: "hsl(var(--secondary))",
+          foreground: "hsl(var(--secondary-foreground))",
         },
         muted: {
           DEFAULT: "hsl(var(--muted))",
           foreground: "hsl(var(--muted-foreground))",
         },
         accent: {
-          DEFAULT: "hsl(var(--accent))", // Lighter Kadosh Green or Gray for hover
+          DEFAULT: "hsl(var(--accent))",
           foreground: "hsl(var(--accent-foreground))",
+        },
+        destructive: {
+          DEFAULT: "hsl(var(--destructive))",
+          foreground: "hsl(var(--destructive-foreground))",
+        },
+        card: {
+          DEFAULT: "hsl(var(--card))",
+          foreground: "hsl(var(--card-foreground))",
         },
         popover: {
           DEFAULT: "hsl(var(--popover))",
           foreground: "hsl(var(--popover-foreground))",
         },
-        card: {
-          DEFAULT: "hsl(var(--card))", // Darker gray for cards
-          foreground: "hsl(var(--card-foreground))",
-        },
-        // Kadosh specific colors
         kadoshGreen: {
-          DEFAULT: "#A5FF3F", // Picked from logo
-          dark: "#8CCF3A",
+          DEFAULT: "hsl(355, 100%, 70%)", // A vibrant red/pink, adjust if 'green' is literal
+          dark: "hsl(355, 100%, 60%)",
         },
         kadoshBlack: {
-          DEFAULT: "#0D0D0D", // Slightly off-black
-          light: "#1A1A1A",
+          DEFAULT: "hsl(20, 14.3%, 4.1%)",
+          light: "hsla(20, 14.3%, 4.1%, 0.7)",
         },
       },
       borderRadius: {

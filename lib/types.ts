@@ -1,46 +1,82 @@
+export type Locale = "en" | "es" | "fr"
+
 export interface Vehicle {
   id: string
   name: string
-  category: "sedan" | "suv" | "minivan" | "compact"
-  images: string[] // URLs to images
+  category: "sedan" | "suv" | "minivan" | "compact" | "luxury" | "sport"
+  images: string[]
   seats: number
-  engine: string // e.g., "2.0L Petrol", "Electric"
-  pricePerDay: number // For display, actual booking logic is manual
+  engine: string
+  pricePerDay: number
   description?: string
   features?: string[]
 }
 
-export type Translations = {
+export interface ReservationFormData {
+  vehicleId: string
+  pickupDate: Date
+  returnDate: Date
+  name: string
+  email: string
+  phone: string
+  message?: string
+}
+
+export interface Dictionary {
   common: {
-    appName: string
-    loading: string
-    reserve: string
-    allCategories: string
-    searchByName: string
-    seats: string
-    engine: string
-    comments: string
-    close: string
-    bookNow: string
-    selectDate: string
-    selectTime: string
     whatsapp: string
     email: string
-    call: string
+    phone: string
+    seats: string
+    engine: string
+    reserve: string
+    close: string
+    viewDetails: string
+    allCategories: string
+    category: string
+    searchByName: string
+    clearFilters: string
     minPrice: string
     maxPrice: string
     minSeats: string
-    clearFilters: string
-    category: string
+    reserveNow: string
+    submit: string
     success: string
     error: string
-    language: string
-  }
-  categories: {
-    sedan: string
-    suv: string
-    minivan: string
-    compact: string
+    loading: string
+    name: string
+    pickupDate: string
+    returnDate: string
+    message: string
+    required: string
+    invalidEmail: string
+    invalidPhone: string
+    dateRangeError: string
+    thankYou: string
+    reservationConfirmed: string
+    weWillContactYou: string
+    ok: string
+    sending: string
+    contactInfo: string
+    address: string
+    selectDate: string
+    selectDates: string
+    pickupLocation: string
+    returnLocation: string
+    fullName: string
+    emailAddress: string
+    phoneNumber: string
+    additionalNotes: string
+    reservationDetails: string
+    vehicle: string
+    pickup: string
+    return: string
+    totalPrice: string
+    perDay: string
+    startingFrom: string
+    termsAndConditions: string
+    privacyPolicy: string
+    vehicleCatalog: string
   }
   hero: {
     title: string
@@ -53,74 +89,39 @@ export type Translations = {
       premiumService: string
     }
   }
-  navigation: {
-    vehicles: string
-    whatsapp: string
-    email: string
-    phone: string
-  }
   vehicleCatalog: {
     title: string
     subtitle: string
-    viewDetails: string
-    reserveNow: string
-    startingFrom: string
-    perDay: string
-    noVehicles: string
-    tryDifferentFilters: string
     searchPlaceholder: string
     filters: string
-  }
-  reservationForm: {
-    title: string
-    subtitle: string
-    firstName: string
-    lastName: string
-    idOrPassport: string
-    phone: string
-    email: string
-    pickupDate: string
-    pickupTime: string
-    returnDate: string
-    returnTime: string
-    additionalComments: string
-    additionalCommentsPlaceholder: string
-    submit: string
-    successMessage: string
-    errorMessage: string
-    downloadICS: string
-    reservingVehicle: string
-    cancel: string
-  }
-  footer: {
-    contactUs: string
-    phone: string
-    email: string
-    address: string
-    availability: string
-    delivery: string
-    payments: string
-    followUs: string
-    quickLinks: string
-    services: string
-    ourFleet: string
-    reservations: string
-    support: string
-    rightsReserved: string
+    noVehicles: string
+    tryDifferentFilters: string
   }
   vehicleDetails: {
-    title: string
     gallery: string
     specifications: string
-    features: string
-    description: string
-    bookThisVehicle: string
-    backToFleet: string
-    pricePerDay: string
-    vehicleSpecs: string
-    included: string
     noImages: string
+    availability: {
+      available: string
+      unavailable: string
+      on_request: string
+    }
+  }
+  categories: {
+    sedan: string
+    suv: string
+    minivan: string
+    compact: string
+    luxury: string
+    sport: string
+  }
+  footer: {
+    footerDescription: string
+    quickLinks: string
+    contactUs: string
+    address: string
+    allRightsReserved: string
+    termsAndConditions: string
+    privacyPolicy: string
   }
 }
-
-export type Locale = "en" | "es" | "fr"

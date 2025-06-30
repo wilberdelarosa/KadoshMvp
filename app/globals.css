@@ -4,66 +4,26 @@
 
 @layer base {
   :root {
-    --background: 0 0% 7%; /* kadoshBlack.DEFAULT #0D0D0D */
-    --foreground: 0 0% 98%; /* Almost white */
-
-    --card: 0 0% 10%; /* kadoshBlack.light #1A1A1A */
-    --card-foreground: 0 0% 90%;
-
-    --popover: 0 0% 10%;
-    --popover-foreground: 0 0% 90%;
-
-    --primary: 80 100% 62%; /* kadoshGreen.DEFAULT #A5FF3F */
-    --primary-foreground: 0 0% 5%; /* Black for text on green */
-
-    --secondary: 0 0% 15%; /* Darker Gray */
-    --secondary-foreground: 0 0% 90%;
-
-    --muted: 0 0% 20%;
-    --muted-foreground: 0 0% 60%;
-
-    --accent: 80 90% 55%; /* Slightly darker green for hover */
-    --accent-foreground: 0 0% 5%;
-
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
-
-    --border: 0 0% 20%;
-    --input: 0 0% 20%;
-    --ring: 80 100% 62%; /* Kadosh Green for focus rings */
-
-    --radius: 0.5rem;
-  }
-
-  .dark {
-    /* Keeping dark theme consistent with base for now, as Kadosh is dark by default */
-    --background: 0 0% 7%;
-    --foreground: 0 0% 98%;
-
-    --card: 0 0% 10%;
-    --card-foreground: 0 0% 90%;
-
-    --popover: 0 0% 10%;
-    --popover-foreground: 0 0% 90%;
-
-    --primary: 80 100% 62%;
-    --primary-foreground: 0 0% 5%;
-
-    --secondary: 0 0% 15%;
-    --secondary-foreground: 0 0% 90%;
-
-    --muted: 0 0% 20%;
-    --muted-foreground: 0 0% 60%;
-
-    --accent: 80 90% 55%;
-    --accent-foreground: 0 0% 5%;
-
+    --background: 20 14.3% 4.1%;
+    --foreground: 60 9.1% 97.8%;
+    --card: 20 14.3% 4.1%;
+    --card-foreground: 60 9.1% 97.8%;
+    --popover: 20 14.3% 4.1%;
+    --popover-foreground: 60 9.1% 97.8%;
+    --primary: 355 100% 70%; /* Kadosh Green */
+    --primary-foreground: 20 14.3% 4.1%;
+    --secondary: 12 6.5% 15.1%;
+    --secondary-foreground: 60 9.1% 97.8%;
+    --muted: 12 6.5% 15.1%;
+    --muted-foreground: 24 5.4% 63.9%;
+    --accent: 12 6.5% 15.1%;
+    --accent-foreground: 60 9.1% 97.8%;
     --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
-
-    --border: 0 0% 20%;
-    --input: 0 0% 20%;
-    --ring: 80 100% 62%;
+    --destructive-foreground: 60 9.1% 97.8%;
+    --border: 12 6.5% 15.1%;
+    --input: 12 6.5% 15.1%;
+    --ring: 355 100% 70%; /* Kadosh Green */
+    --radius: 0.5rem;
   }
 }
 
@@ -74,4 +34,45 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+/* Custom Kadosh Colors */
+.text-kadoshGreen-DEFAULT {
+  color: hsl(355, 100%, 70%); /* A vibrant red/pink, adjust if 'green' is literal */
+}
+
+.bg-kadoshGreen-DEFAULT {
+  background-color: hsl(355, 100%, 70%);
+}
+
+.hover\:bg-kadoshGreen-dark:hover {
+  background-color: hsl(355, 100%, 60%); /* Slightly darker for hover */
+}
+
+.border-kadoshGreen-DEFAULT {
+  border-color: hsl(355, 100%, 70%);
+}
+
+.text-kadoshBlack-DEFAULT {
+  color: hsl(20, 14.3%, 4.1%); /* Dark background color */
+}
+
+.bg-kadoshBlack-DEFAULT {
+  background-color: hsl(20, 14.3%, 4.1%);
+}
+
+.bg-kadoshBlack-light\/70 {
+  background-color: hsla(20, 14.3%, 4.1%, 0.7);
+}
+
+.hover\:text-kadoshBlack-DEFAULT:hover {
+  color: hsl(20, 14.3%, 4.1%);
+}
+
+.hover\:border-kadoshGreen-DEFAULT\/50:hover {
+  border-color: hsla(355, 100%, 70%, 0.5);
+}
+
+.hover\:shadow-kadoshGreen-DEFAULT\/20:hover {
+  box-shadow: 0 25px 50px -12px hsla(355, 100%, 70%, 0.2);
 }
