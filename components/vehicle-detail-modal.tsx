@@ -62,8 +62,8 @@ export default function VehicleDetailModal({ vehicle, isOpen, onClose, onReserve
                         <Image
                           src={src || "/placeholder.svg"}
                           alt={`${vehicle.name} image ${index + 1}`}
-                          layout="fill"
-                          objectFit="cover"
+                          fill
+                          className="object-cover"
                         />
                       </div>
                     </CarouselItem>
@@ -125,7 +125,9 @@ export default function VehicleDetailModal({ vehicle, isOpen, onClose, onReserve
               )}
               {vehicle.features && vehicle.features.length > 0 && (
                 <div>
-                  <h4 className="font-medium mt-3 mb-1 text-kadoshGreen-DEFAULT/80">Features:</h4>
+                  <h4 className="font-medium mt-3 mb-1 text-kadoshGreen-DEFAULT/80">
+                    {t("features", "vehicleDetails")}:
+                  </h4>
                   <ul className="list-none space-y-1">
                     {vehicle.features.map((feature, idx) => (
                       <li key={idx} className="flex items-center gap-2">

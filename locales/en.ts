@@ -17,6 +17,8 @@ const en: Translations = {
     whatsapp: "WhatsApp",
     email: "Email",
     call: "Call",
+    priceRange: "Price Range",
+    minSeats: "Min Seats",
     clearFilters: "Clear Filters",
     category: "Category",
     success: "Success",
