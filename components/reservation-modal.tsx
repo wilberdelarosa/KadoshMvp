@@ -83,6 +83,13 @@ export default function ReservationModal({ vehicle, isOpen, onClose }: Reservati
   })
 
   const pickupDate = watch("pickupDate")
+  const [pickupTimeValue, returnDateValue, returnTimeValue, firstNameValue, lastNameValue] = watch([
+    "pickupTime",
+    "returnDate",
+    "returnTime",
+    "firstName",
+    "lastName",
+  ])
 
   const onSubmit: SubmitHandler<ReservationFormData> = (data) => {
     startTransition(async () => {
@@ -122,6 +129,10 @@ export default function ReservationModal({ vehicle, isOpen, onClose }: Reservati
   }
 
   if (!vehicle) return null
+
+  const contactName = [firstNameValue, lastNameValue].filter(Boolean).join(" ")
+  const pickupSummary = pickupDate && pickupTimeValue ? `${format(pickupDate, "PPP")} • ${pickupTimeValue}` : null
+  const returnSummary = returnDateValue && returnTimeValue ? `${format(returnDateValue, "PPP")} • ${returnTimeValue}` : null
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
@@ -346,6 +357,32 @@ export default function ReservationModal({ vehicle, isOpen, onClose }: Reservati
             >
               {isPending ? t("loading", "common") : t("submit", "reservationForm")}
             </Button>
+          </div>
+
+          <div className="bg-kadoshBlack-light rounded-xl p-4 border border-kadoshGreen-DEFAULT/30 space-y-3">
+            <h4 className="text-sm font-semibold uppercase tracking-wide text-kadoshGreen-DEFAULT">
+              {t("summaryTitle", "reservationForm")}
+            </h4>
+            <div className="space-y-2 text-sm text-gray-300">
+              <div className="flex items-start justify-between gap-4">
+                <span className="text-gray-400">{t("summaryContact", "reservationForm")}</span>
+                <span className="font-medium text-white text-right">
+                  {contactName || t("summaryPending", "reservationForm")}
+                </span>
+              </div>
+              <div className="flex items-start justify-between gap-4">
+                <span className="text-gray-400">{t("summaryPickup", "reservationForm")}</span>
+                <span className="font-medium text-white text-right">
+                  {pickupSummary || t("summaryPending", "reservationForm")}
+                </span>
+              </div>
+              <div className="flex items-start justify-between gap-4">
+                <span className="text-gray-400">{t("summaryReturn", "reservationForm")}</span>
+                <span className="font-medium text-white text-right">
+                  {returnSummary || t("summaryPending", "reservationForm")}
+                </span>
+              </div>
+            </div>
           </div>
 
           {icsUrl && (
