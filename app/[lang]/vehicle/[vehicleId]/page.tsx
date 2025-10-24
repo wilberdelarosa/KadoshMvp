@@ -1,7 +1,7 @@
 "use client"
 
-import React, { useState, useEffect, use } from "react"
-import { useParams, useRouter } from "next/navigation"
+import { useEffect, useState } from "react"
+import { useParams } from "next/navigation"
 import Image from "next/image"
 import Link from "next/link"
 import { vehiclesData } from "@/lib/vehicles"
@@ -11,18 +11,23 @@ import { Badge } from "@/components/ui/badge"
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious, type CarouselApi } from "@/components/ui/carousel"
 import { cn } from "@/lib/utils"
 import { ArrowLeft, Users, Zap, Tag, CheckCircle } from "lucide-react"
-import { useI18n, I18nProvider } from "@/context/i18n-context"
+import { useI18n } from "@/context/i18n-context"
 import ReservationForm from "@/components/reservation-form"
 import { Toaster } from "@/components/ui/toaster"
 
-const VehicleDetailContent = ({ lang }: { lang: Locale }) => {
+const SUPPORTED_LOCALES: Locale[] = ["en", "es", "fr"]
+const isLocale = (value: string): value is Locale => (SUPPORTED_LOCALES as string[]).includes(value)
+
+export default function VehicleDetailPage() {
   const { t } = useI18n()
-  const params = useParams()
-  const router = useRouter()
+  const params = useParams<{ lang: string; vehicleId: string }>()
   const [vehicle, setVehicle] = useState<Vehicle | null>(null)
   const [showReservationForm, setShowReservationForm] = useState(false)
   const [carouselApi, setCarouselApi] = useState<CarouselApi | null>(null)
   const [selectedIndex, setSelectedIndex] = useState(0)
+
+  const langParam = params?.lang ?? "en"
+  const currentLang: Locale = isLocale(langParam) ? langParam : "en"
 
   useEffect(() => {
     if (!carouselApi) return
@@ -45,7 +50,7 @@ const VehicleDetailContent = ({ lang }: { lang: Locale }) => {
       <div className="min-h-screen bg-background flex items-center justify-center">
         <div className="text-center">
           <h1 className="text-2xl font-bold text-kadoshGreen-DEFAULT mb-4">{t("noVehicles", "vehicleCatalog")}</h1>
-          <Link href={`/${lang}`}>
+          <Link href={`/${currentLang}`}>
             <Button variant="outline" className="border-kadoshGreen-DEFAULT text-kadoshGreen-DEFAULT">
               {t("backToFleet", "vehicleDetails")}
             </Button>
@@ -60,7 +65,7 @@ const VehicleDetailContent = ({ lang }: { lang: Locale }) => {
       <main className="container mx-auto py-8 px-4">
         {/* Back Button */}
         <div className="mb-8">
-          <Link href={`/${lang}`}>
+          <Link href={`/${currentLang}`}>
             <Button
               variant="outline"
               className="border-kadoshGreen-DEFAULT text-kadoshGreen-DEFAULT hover:bg-kadoshGreen-DEFAULT hover:text-kadoshBlack-DEFAULT"
@@ -203,16 +208,5 @@ const VehicleDetailContent = ({ lang }: { lang: Locale }) => {
       </main>
       <Toaster />
     </div>
-  )
-}
-
-export default function VehicleDetailPage({ params }: { params: any }) {
-  const { lang } = use(params) as { lang: Locale }
-  const currentLang = ["en", "es", "fr"].includes(lang) ? lang : "en"
-
-  return (
-    <I18nProvider initialLocale={currentLang}>
-      <VehicleDetailContent lang={currentLang} />
-    </I18nProvider>
   )
 }

@@ -13,7 +13,8 @@ import { Badge } from "@/components/ui/badge"
 import { Separator } from "@/components/ui/separator"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { Search, Filter, XCircle, Star, Clock, MapPin, CreditCard, History } from "lucide-react"
-import { useI18n, I18nProvider } from "@/context/i18n-context"
+import { useI18n } from "@/context/i18n-context"
+
 import { Toaster } from "@/components/ui/toaster"
 
 type FilterHistoryEntry =
@@ -23,8 +24,11 @@ type FilterHistoryEntry =
   | { id: number; type: "seats"; value: string; timestamp: number }
   | { id: number; type: "clear"; value: "search" | "category" | "price" | "seats" | "all"; timestamp: number }
 
-const PageContent = ({ lang }: { lang: Locale }) => {
-  const { t } = useI18n()
+const SUPPORTED_LOCALES: Locale[] = ["en", "es", "fr"]
+
+const KadoshVehiclePage = () => {
+  const { t, locale } = useI18n()
+
   const [filteredVehicles, setFilteredVehicles] = useState<Vehicle[]>(vehiclesData)
   const [searchTerm, setSearchTerm] = useState("")
   const [selectedCategory, setSelectedCategory] = useState<string>("all")
@@ -176,12 +180,13 @@ const PageContent = ({ lang }: { lang: Locale }) => {
       es: "es-ES",
       fr: "fr-FR",
     }
-    return new Intl.NumberFormat(localeMap[lang] ?? "en-US", {
+    const resolvedLocale: Locale = SUPPORTED_LOCALES.includes(locale) ? locale : "en"
+    return new Intl.NumberFormat(localeMap[resolvedLocale] ?? "en-US", {
       style: "currency",
       currency: "USD",
       maximumFractionDigits: 0,
     })
-  }, [lang])
+  }, [locale])
 
   const isDefaultPriceRange = priceRange[0] === priceBounds.min && priceRange[1] === priceBounds.max
 
@@ -530,13 +535,4 @@ const PageContent = ({ lang }: { lang: Locale }) => {
   )
 }
 
-export default function KadoshVehiclePage({ params }: { params: { lang: Locale } }) {
-  const lang = params.lang
-  const currentLang: Locale = ["en", "es", "fr"].includes(lang) ? lang : "en"
-
-  return (
-    <I18nProvider initialLocale={currentLang}>
-      <PageContent lang={currentLang} />
-    </I18nProvider>
-  )
-}
+export default KadoshVehiclePage
