@@ -14,6 +14,7 @@ import { Separator } from "@/components/ui/separator"
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { Search, Filter, XCircle, Star, Clock, MapPin, CreditCard, History } from "lucide-react"
 import { useI18n } from "@/context/i18n-context"
+
 import { Toaster } from "@/components/ui/toaster"
 
 type FilterHistoryEntry =
@@ -27,6 +28,7 @@ const SUPPORTED_LOCALES: Locale[] = ["en", "es", "fr"]
 
 const KadoshVehiclePage = () => {
   const { t, locale } = useI18n()
+
   const [filteredVehicles, setFilteredVehicles] = useState<Vehicle[]>(vehiclesData)
   const [searchTerm, setSearchTerm] = useState("")
   const [selectedCategory, setSelectedCategory] = useState<string>("all")
