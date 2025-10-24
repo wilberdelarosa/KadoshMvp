@@ -73,6 +73,13 @@ export default function ReservationForm({ vehicle, onFormSubmitSuccess }: Reserv
   })
 
   const pickupDate = watch("pickupDate")
+  const [pickupTimeValue, returnDateValue, returnTimeValue, firstNameValue, lastNameValue] = watch([
+    "pickupTime",
+    "returnDate",
+    "returnTime",
+    "firstName",
+    "lastName",
+  ])
 
   const onSubmit: SubmitHandler<ReservationFormData> = (data) => {
     startTransition(async () => {
@@ -300,6 +307,36 @@ export default function ReservationForm({ vehicle, onFormSubmitSuccess }: Reserv
             className="bg-input border-gray-700 focus:border-kadoshGreen-DEFAULT min-h-[100px]"
             placeholder={t("additionalCommentsPlaceholder", "reservationForm")}
           />
+        </div>
+
+        <div className="bg-kadoshBlack-light rounded-xl p-4 border border-kadoshGreen-DEFAULT/30 space-y-3">
+          <h4 className="text-sm font-semibold uppercase tracking-wide text-kadoshGreen-DEFAULT">
+            {t("summaryTitle", "reservationForm")}
+          </h4>
+          <div className="space-y-2 text-sm text-gray-300">
+            <div className="flex items-start justify-between gap-4">
+              <span className="text-gray-400">{t("summaryContact", "reservationForm")}</span>
+              <span className="font-medium text-white text-right">
+                {[firstNameValue, lastNameValue].filter(Boolean).join(" ") || t("summaryPending", "reservationForm")}
+              </span>
+            </div>
+            <div className="flex items-start justify-between gap-4">
+              <span className="text-gray-400">{t("summaryPickup", "reservationForm")}</span>
+              <span className="font-medium text-white text-right">
+                {pickupDate && pickupTimeValue
+                  ? `${format(pickupDate, "PPP")} • ${pickupTimeValue}`
+                  : t("summaryPending", "reservationForm")}
+              </span>
+            </div>
+            <div className="flex items-start justify-between gap-4">
+              <span className="text-gray-400">{t("summaryReturn", "reservationForm")}</span>
+              <span className="font-medium text-white text-right">
+                {returnDateValue && returnTimeValue
+                  ? `${format(returnDateValue, "PPP")} • ${returnTimeValue}`
+                  : t("summaryPending", "reservationForm")}
+              </span>
+            </div>
+          </div>
         </div>
 
         <Button
